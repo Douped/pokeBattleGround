@@ -35,10 +35,10 @@ const typeDefs = gql`
 
   input PokemonInput {
     pokemonID: String!
-    pokemonName: [String]
+    pokemonName: String!
     # description: String!
     image: String!
-    moves: [Move]
+    moves: [String!]
     health: String!
   }
 
