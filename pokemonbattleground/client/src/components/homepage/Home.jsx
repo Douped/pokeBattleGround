@@ -5,7 +5,7 @@ import "./home.css";
 const Home = () => {
   return (
     <>
-      <div class="font-sans flex flex-row justify-center text-center rounded-lg border-2 bg-indigo-300/[0.3] ">
+      <div className="font-sans flex flex-row justify-center text-center rounded-lg border-2 bg-indigo-300/[0.3] ">
         First things first in order to play this fantastic game you must login
         to your previously made account, or make a new one by clicking either
         button at the top of your screen. You must first choose a pokemon to
@@ -20,18 +20,18 @@ const Home = () => {
         to play again with the same pokemon, choose a new one, or quit where you
         will be sent to the hompage and logged out.
       </div>
-      <div class="text-2xl font-bold font-sans flex flex-col justify-center text-center gap-2">
+      <div className="text-2xl font-bold font-sans flex flex-col justify-center text-center gap-2">
         Choose Your Pokemon
-        <div class="flex flex-wrap flex-row gap-3 justify-center adjust">
-          <div class="basis-1/4 border-2 border-black rounded-lg">dawdawd</div>
-          <div class="basis-1/4 border-2 border-black rounded-lg">dawdawd</div>
-          <div class="basis-1/4 border-2 border-black rounded-lg">dawdawd</div>
-          <div class="basis-1/4 border-2 border-black rounded-lg">dawdwad</div>
-          <div class="basis-1/4 border-2 border-black rounded-lg">dawdawd</div>
-          <div class="basis-1/4 border-2 border-black rounded-lg">dwadawd</div>
-          <div class="basis-1/4 border-2 border-black rounded-lg">dawdwad</div>
-          <div class="basis-1/4 border-2 border-black rounded-lg">dawdawd</div>
-          <div class="basis-1/4 border-2 border-black rounded-lg">dwadawd</div>
+        <div className="flex flex-wrap flex-row gap-3 justify-center adjust">
+          <div className="basis-1/4 border-2 border-black rounded-lg">dawdawd</div>
+          <div className="basis-1/4 border-2 border-black rounded-lg">dawdawd</div>
+          <div className="basis-1/4 border-2 border-black rounded-lg">dawdawd</div>
+          <div className="basis-1/4 border-2 border-black rounded-lg">dawdwad</div>
+          <div className="basis-1/4 border-2 border-black rounded-lg">dawdawd</div>
+          <div className="basis-1/4 border-2 border-black rounded-lg">dwadawd</div>
+          <div className="basis-1/4 border-2 border-black rounded-lg">dawdwad</div>
+          <div className="basis-1/4 border-2 border-black rounded-lg">dawdawd</div>
+          <div className="basis-1/4 border-2 border-black rounded-lg">dwadawd</div>
         </div>
       </div>
     </>

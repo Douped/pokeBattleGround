@@ -7,10 +7,10 @@ import { BsInstagram } from "react-icons/bs";
 const Footer = () => {
   return (
     <>
-      <footer class="font-sans justify-center flex flex-col bg-indigo-300 gap-6 text-center">
-        <div class="flex flex-col gap-3 text-center">
+      <footer className="font-sans justify-center flex flex-col bg-indigo-300 gap-6 text-center">
+        <div className="flex flex-col gap-3 text-center">
           <strong>Albi's Socials</strong>
-          <div class="flex flex-row gap-10 text-4xl justify-center">
+          <div className="flex flex-row gap-10 text-4xl justify-center">
             <a href="https://linkedin.com" target="_blank">
               <BsLinkedin />
             </a>
@@ -25,9 +25,9 @@ const Footer = () => {
             </a>
           </div>
         </div>
-        <div class="flex flex-col gap-3 text-center">
+        <div className="flex flex-col gap-3 text-center">
           <strong>Tony's Socials</strong>
-          <div class="flex flex-row gap-10 text-4xl justify-center">
+          <div className="flex flex-row gap-10 text-4xl justify-center">
             <a href="https://linkedin.com" target="_blank">
               <BsLinkedin />
             </a>
@@ -40,7 +40,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <small class="font-sans justify-center flex flex-row">
+        <small className="font-sans justify-center flex flex-row">
           &copy; Albi Krasniqi Tony R(Cannot spell your last name not even
           attempting)
         </small>
