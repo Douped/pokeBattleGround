@@ -7,7 +7,7 @@ const movesSchema = new Schema({
   },
   moveName: { type: String, required: true },
   description: { type: String, required: false },
-  types: { type: String, required: true },
+  types: [{ type: String, required: true }],
   damage: { type: String, required: true },
 });
 

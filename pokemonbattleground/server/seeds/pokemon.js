@@ -1,12 +1,12 @@
 const db = require("../config/connection");
 const { model } = require("mongoose");
-const { Pokemon, User, Moves, Presets } = require("../models");
+const { Pokemon, User, movesSchema, Presets } = require("../models");
 const fetch = require("node-fetch");
 
 const pokimane = "https://pokeapi.co/api/v2/pokemon?limit=151&offset=0";
 const pokiMoves = "https://pokeapi.co/api/v2/pokemon/";
-
 const pokemonDataJson = [];
+const pokemonMovesDataJson = [];
 db.once("open", async () => {
   try {
     await Pokemon.deleteMany({});
@@ -25,14 +25,27 @@ db.once("open", async () => {
           pokemon.sprites.front_default,
           pokemon.sprites.back_default,
         ];
+        let pokemonMoves = [];
+        pokemon.moves.forEach((move) => {
+          let id = move.move.url.split("/")[6];
+          let name = move.move.name;
+          pokemonMoves.push({
+            moveID: id,
+            moveName: name,
+            description: "none",
+            types: ["fire", "water"],
+            damage: "50",
+          });
+        });
         pokemonDataJson.push({
           pokemonName: element.name,
           pokemonID: element.url.split("/")[6],
           image: sprites,
+          moves: pokemonMoves,
         });
       })
     );
-    Pokemon.create(pokemonDataJson);
+    await Pokemon.create(pokemonDataJson);
     console.log(pokemonDataJson);
   } catch (err) {
     throw err;
