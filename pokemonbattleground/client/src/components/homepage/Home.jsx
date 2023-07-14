@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+import { useQuery } from "@apollo/client";
+import { QUERY_MATCHUPS } from "../utils/queries";
+
+import fetch from "node-fetch";
 
 import "./home.css";
 
 const Home = () => {
+  
+  const { loading, data } = useQuery(QUERY_POKEMON, {
+    fetchPolicy: "no-cache",
+  });
+
+  const pokemonList = data?.pokemon || [];
+
   return (
     <>
       <div className="font-sans flex flex-row justify-center text-center rounded-lg border-2 bg-indigo-300/[0.3] ">
@@ -23,15 +35,16 @@ const Home = () => {
       <div className="text-2xl font-bold font-sans flex flex-col justify-center text-center gap-2">
         Choose Your Pokemon
         <div className="flex flex-wrap flex-row gap-3 justify-center adjust">
-          <div className="basis-1/4 border-2 border-black rounded-lg">dawdawd</div>
-          <div className="basis-1/4 border-2 border-black rounded-lg">dawdawd</div>
-          <div className="basis-1/4 border-2 border-black rounded-lg">dawdawd</div>
-          <div className="basis-1/4 border-2 border-black rounded-lg">dawdwad</div>
-          <div className="basis-1/4 border-2 border-black rounded-lg">dawdawd</div>
-          <div className="basis-1/4 border-2 border-black rounded-lg">dwadawd</div>
-          <div className="basis-1/4 border-2 border-black rounded-lg">dawdwad</div>
-          <div className="basis-1/4 border-2 border-black rounded-lg">dawdawd</div>
-          <div className="basis-1/4 border-2 border-black rounded-lg">dwadawd</div>
+          {pokemonList.map((pokemon) => (
+            <div
+              key={pokemon.pokemonID}
+              className="basis-1/4 border-2 border-black rounded-lg"
+            >
+              <p>{pokemon.pokemonName}</p>
+              <img src={pokemon.image} alt="pokemon image"></img>
+              <p>{pokemon.pokemonID}</p>
+            </div>
+          ))}
         </div>
       </div>
     </>
