@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 
 // import pokemon schema
-const pokemonSchema = require("./Pokemon");
+const Pokemon = require("./Pokemon");
 
 const userSchema = new Schema(
   {
@@ -24,7 +24,6 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    pokemon: pokemonSchema,
   },
   // set this to use virtuals
   {
