@@ -1,5 +1,11 @@
 import ReactDom from "react-dom";
+import React from "react";
 
 import App from "./App";
 
-ReactDom.render(<App className="flex-wrap" />, document.getElementById("root"));
+ReactDom.render(
+  <React.StrictMode>
+    <App className="flex-wrap" />
+  </React.StrictMode>,
+  document.getElementById("root")
+);

@@ -16,8 +16,8 @@ const typeDefs = gql`
     # optional
     # description: String
     image: String!
-    moves: [Move]
-    health: String!
+    # moves: [Move]
+    # health: String!
   }
 
   type Move {
