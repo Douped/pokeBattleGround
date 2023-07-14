@@ -1,9 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const QUERY_POKEMON = gql`
-  query pokemon {
+  query Pokemon {
     pokemon {
-      _id
       pokemonName
       pokemonID
       image
@@ -11,11 +10,14 @@ export const QUERY_POKEMON = gql`
   }
 `;
 
-// export const QUERY_POKEMON = gql
-//   {
-//     pokemon {
-//       _id
-//       pokemonID
-//     }
-//   }
-// ;
+export const QUERY_SINGLE = gql`
+  query Query($pokemonId: ID!) {
+    pokemonMove(pokemonID: $pokemonId) {
+      image
+      moves {
+        moveName
+      }
+      pokemonName
+    }
+  }
+`;

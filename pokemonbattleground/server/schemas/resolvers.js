@@ -13,6 +13,10 @@ const resolvers = {
     pokemon: async () => {
       return Pokemon.find();
     },
+    pokemonMove: async (parent, { pokemonID }) => {
+      console.log(pokemonID);
+      return Pokemon.findOne({ pokemonID: pokemonID });
+    },
   },
   Mutation: {
     login: async (parent, { email, password }) => {

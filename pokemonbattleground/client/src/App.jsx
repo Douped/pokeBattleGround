@@ -27,7 +27,7 @@ const App = () => {
           <div className="bg-Img">
             <Routes>
               <Route exact path="/" element={<Home />}></Route>
-              <Route exact path="/moves" element={<Moves />}></Route>
+              <Route exact path="/moves/:pokemonID" element={<Moves />}></Route>
               <Route exact path="/battle" element={<Battle />}></Route>
               <Route exact path="/end" element={<EndScreen />}></Route>
             </Routes>
