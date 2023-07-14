@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 
 import { useQuery } from "@apollo/client";
-import { QUERY_MATCHUPS } from "../utils/queries";
-
-import fetch from "node-fetch";
+import { QUERY_POKEMON } from "../../utils/queries";
 
 import "./home.css";
 
 const Home = () => {
-  
   const { loading, data } = useQuery(QUERY_POKEMON, {
     fetchPolicy: "no-cache",
   });
 
   const pokemonList = data?.pokemon || [];
+
+  console.log(pokemonList);
 
   return (
     <>
@@ -37,7 +36,7 @@ const Home = () => {
         <div className="flex flex-wrap flex-row gap-3 justify-center adjust">
           {pokemonList.map((pokemon) => (
             <div
-              key={pokemon.pokemonID}
+              key={pokemon._id}
               className="basis-1/4 border-2 border-black rounded-lg"
             >
               <p>{pokemon.pokemonName}</p>
