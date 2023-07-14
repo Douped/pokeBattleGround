@@ -11,7 +11,7 @@ db.once("open", async () => {
   try {
     await Pokemon.deleteMany({});
     await User.deleteMany({});
-    // await Moves.deleteMany({});
+    //await Moves.deleteMany({});
     // await Presets.deleteMany({});
 
     const pokemonResponse = await fetch(pokimane);
@@ -21,7 +21,10 @@ db.once("open", async () => {
       pokemonData.results.map(async (element) => {
         const res = await fetch(element.url);
         const pokemon = await res.json();
-        const sprites = pokemon.sprites.front_default;
+        const sprites = [
+          pokemon.sprites.front_default,
+          pokemon.sprites.back_default,
+        ];
         pokemonDataJson.push({
           pokemonName: element.name,
           pokemonID: element.url.split("/")[6],
@@ -29,7 +32,6 @@ db.once("open", async () => {
         });
       })
     );
-
     Pokemon.create(pokemonDataJson);
     console.log(pokemonDataJson);
   } catch (err) {

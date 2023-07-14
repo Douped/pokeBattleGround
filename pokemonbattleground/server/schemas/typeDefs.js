@@ -15,9 +15,9 @@ const typeDefs = gql`
     pokemonName: String!
     # optional
     # description: String
-    image: String!
-    # moves: [Move]
-    # health: String!
+    image: [String!]
+    moves: [Move]
+    health: String!
   }
 
   type Move {
@@ -38,7 +38,7 @@ const typeDefs = gql`
     pokemonID: String!
     pokemonName: String!
     # description: String!
-    image: String!
+    image: [String!]
     moves: [String!]
     health: String!
   }
