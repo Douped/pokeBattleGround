@@ -8,8 +8,8 @@ const pokemonSchema = new Schema({
   },
   pokemonName: { type: String, required: true },
   // description: {type: String, required: false,},
-  image: { type: String, required: true },
-  // moves: [movesSchema],
+  image: [{ type: String, required: true }],
+  moves: [movesSchema],
   // health: { type: String, required: true },
 });
 const Pokemon = model("Pokemon", pokemonSchema);
