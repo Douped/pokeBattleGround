@@ -5,6 +5,7 @@ const typeDefs = gql`
     _id: ID!
     username: String!
     email: String!
+    password: String!
     pokemon: [Pokemon]
     presets: [Preset]
   }
@@ -49,6 +50,7 @@ const typeDefs = gql`
 
   type Query {
     me: User
+    pokemon: [Pokemon]
   }
 
   type Mutation {

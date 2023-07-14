@@ -38,5 +38,3 @@ db.once("open", async () => {
   console.log("Done");
   process.exit(0);
 });
-
-module.exports = pokemonDataJson;
