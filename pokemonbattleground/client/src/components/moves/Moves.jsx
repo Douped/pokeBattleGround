@@ -8,12 +8,11 @@ import "./moves.css";
 
 const Moves = () => {
   let { pokemonID } = useParams();
-  console.log(pokemonID);
   const { loading, data } = useQuery(QUERY_SINGLE, {
     variables: { pokemonId: pokemonID },
   });
 
-  const pokemonList = data?.pokemonMove || [];
+  const pokemonList = data?.singlePokemon || [];
 
   console.log(pokemonList);
 
@@ -32,8 +31,8 @@ const Moves = () => {
             ></img>
             <h1>Type</h1>
             <div className="flex flex-wrap flex-row gap-3 justify-center">
-              <div>dawdwad</div>
-              <div>dawdawd</div>
+              <div>{pokemonList.types[0]}</div>
+              <div>{pokemonList.types[1]}</div>
             </div>
           </div>
           <div className="flex flex-wrap flex-row gap-3 justify-center">
@@ -57,7 +56,7 @@ const Moves = () => {
                     key={pokemon.pokemonName}
                     className="hover:bg-blue-800 basis-1/4 border-2 border-black rounded-lg"
                   >
-                    <h1>{pokemon.moveName}</h1>
+                    <h1>{pokemon.moves}</h1>
                   </button>
                 ))}
               </div>

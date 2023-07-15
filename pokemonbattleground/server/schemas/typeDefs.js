@@ -16,16 +16,21 @@ const typeDefs = gql`
     # optional
     # description: String
     image: [String!]
-    moves: [Move]
-    health: String!
+    moves: [String!]
+    types: [String!]
   }
 
   type Move {
-    moveID: ID!
+    moveID: String!
     moveName: String!
     description: String
-    types: [String!]
-    damage: String!
+    status: String
+    type: String!
+    speed: String!
+    accuracy: String
+    damage: String
+    ailment: [String]
+    pp: String!
   }
 
   type Preset {
@@ -51,7 +56,7 @@ const typeDefs = gql`
   type Query {
     me: User
     pokemon: [Pokemon]
-    pokemonMove(pokemonID: ID!): Pokemon
+    singlePokemon(pokemonID: String!): Pokemon
   }
 
   type Mutation {
