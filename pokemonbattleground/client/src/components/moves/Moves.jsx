@@ -44,7 +44,7 @@ const Moves = () => {
               <div>dawdawd</div>
             </div>
           </div>
-          <div className="flex flex-wrap flex-row gap-3 justify-center rounded-lg border-2 bg-indigo-300/[0.3] fix">
+          <div className="flex flex-wrap flex-col gap-3 justify-center rounded-lg border-2 bg-indigo-300/[0.3] fix">
             <h1>Moves to Choose from</h1>
             <div className="max-h-[30rem] overflow-y-auto">
               <div className="flex flex-wrap flex-row gap-3 justify-center rounded-lg bg-indigo-300/[0.3] fix">
@@ -53,10 +53,10 @@ const Moves = () => {
 
                   // }
                   <button
-                    key={pokemon.pokemonName}
+                    key={pokemon}
                     className="hover:bg-blue-800 basis-1/4 border-2 border-black rounded-lg"
                   >
-                    <h1>{pokemon.moves}</h1>
+                    <h1>{pokemon}</h1>
                   </button>
                 ))}
               </div>
