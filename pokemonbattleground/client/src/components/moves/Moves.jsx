@@ -167,13 +167,15 @@ const Moves = () => {
               >
                 {pokemonList.types[0]}
               </div>
-              <div
-                className={`w-60 rounded-lg border-2 border-black ${
-                  getBackground().backgroundColor2
-                }`}
-              >
-                {pokemonList.types[1]}
-              </div>
+              {pokemonList.types[1] && (
+                <div
+                  className={`w-60 rounded-lg border-2 border-black ${
+                    getBackground().backgroundColor2
+                  }`}
+                >
+                  {pokemonList.types[1]}
+                </div>
+              )}
             </div>
           </div>
           <div className="flex flex-wrap flex-row gap-3 justify-center">
