@@ -6,18 +6,20 @@ export const QUERY_POKEMON = gql`
       pokemonName
       pokemonID
       image
+      types
+      moves
     }
   }
 `;
 
 export const QUERY_SINGLE = gql`
-  query Query($pokemonId: ID!) {
-    pokemonMove(pokemonID: $pokemonId) {
+  query Query($pokemonId: String!) {
+    singlePokemon(pokemonID: $pokemonId) {
       image
-      moves {
-        moveName
-      }
+      moves
+      pokemonID
       pokemonName
+      types
     }
   }
 `;
