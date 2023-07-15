@@ -2,6 +2,7 @@
 
 import { useQuery } from "@apollo/client";
 import { QUERY_POKEMON } from "../../utils/queries";
+import { useParams, Link } from "react-router-dom";
 
 import "./home.css";
 
@@ -33,15 +34,17 @@ const Home = () => {
       </div>
       <div className="text-2xl font-bold font-sans flex flex-col justify-center text-center gap-2">
         Choose Your Pokemon
-        <div className="flex flex-wrap flex-row gap-3 justify-center adjust">
+        <div className="flex flex-wrap flex-row gap-3 justify-center adjust items-center">
           {pokemonList.map((pokemon) => (
             <div
-              key={pokemon._id}
-              className="basis-1/4 border-2 border-black rounded-lg"
+              key={pokemon.pokemonID}
+              className="basis-1/4 border-2 border-black rounded-lg justify-center items-center text-center place-items-center"
             >
-              <p>{pokemon.pokemonName}</p>
-              <img src={pokemon.image} alt="pokemon image"></img>
-              <p>{pokemon.pokemonID}</p>
+              <Link to={{ pathname: `/moves/${pokemon.pokemonID}` }}>
+                <p>{pokemon.pokemonName}</p>
+                <img src={pokemon.image[0]} alt="pokemon image"></img>
+                <p>{pokemon.pokemonID}</p>
+              </Link>
             </div>
           ))}
         </div>

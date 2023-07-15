@@ -24,7 +24,7 @@ const typeDefs = gql`
     moveID: ID!
     moveName: String!
     description: String
-    types: String!
+    types: [String!]
     damage: String!
   }
 
@@ -51,6 +51,7 @@ const typeDefs = gql`
   type Query {
     me: User
     pokemon: [Pokemon]
+    pokemonMove(pokemonID: ID!): Pokemon
   }
 
   type Mutation {
