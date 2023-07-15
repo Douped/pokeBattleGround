@@ -11,13 +11,6 @@ const End = () => {
         <a className="btn btn-primary">Quit</a>
       </div>
     </div>
-    // <div className="flex flex-wrap flex-row justify-center text-center h-screen">
-    //   <div className="flex flex-wrap flex-col gap-3 items-center h-screen">
-    //     <a className="btn btn-primary">Play Again</a>
-    //     <a className="btn btn-primary">Choose New Pokemon</a>
-    //     <a className="btn btn-primary">Quit</a>
-    //   </div>
-    // </div>
   );
 };
 
