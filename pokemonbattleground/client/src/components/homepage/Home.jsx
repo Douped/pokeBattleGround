@@ -33,20 +33,24 @@ const Home = () => {
         will be sent to the hompage and logged out.
       </div>
       <div className="text-2xl font-bold font-sans flex flex-col justify-center text-center gap-2">
-        Choose Your Pokemon
-        <div className="flex flex-wrap flex-row gap-3 justify-center adjust items-center">
-          {pokemonList.map((pokemon) => (
-            <div
-              key={pokemon.pokemonID}
-              className="basis-1/4 border-2 border-black rounded-lg justify-center items-center text-center place-items-center"
-            >
-              <Link to={{ pathname: `/moves/${pokemon.pokemonID}` }}>
-                <p>{pokemon.pokemonName}</p>
-                <img src={pokemon.image[0]} alt="pokemon image"></img>
-                <p>{pokemon.pokemonID}</p>
-              </Link>
-            </div>
-          ))}
+        <div className="flex flex-wrap flex-row gap-3 justify-center adjust items-center rounded-lg border-2 bg-indigo-300/[0.3] fix">
+          Choose Your Pokemon
+          <div className="flex flex-wrap flex-row gap-3 justify-center adjust items-center rounded-lg border-2 bg-indigo-300/[0.3] fix">
+            {pokemonList.map((pokemon) => (
+              <div
+                key={pokemon.pokemonID}
+                className="basis-1/4 border-2 border-black rounded-lg justify-center items-center text-center place-items-center"
+              >
+                <Link to={{ pathname: `/moves/${pokemon.pokemonID}` }}>
+                  <p>{pokemon.pokemonName}</p>
+                  <div className="flex flex-wrap flex-row justify-center">
+                    <img src={pokemon.image[0]} alt="pokemon"></img>
+                  </div>
+                  <p>{pokemon.pokemonID}</p>
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </>
