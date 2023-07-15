@@ -13,7 +13,7 @@ const resolvers = {
     pokemon: async () => {
       return Pokemon.find();
     },
-    pokemonMove: async (parent, { pokemonID }) => {
+    singlePokemon: async (parent, { pokemonID }) => {
       console.log(pokemonID);
       return Pokemon.findOne({ pokemonID: pokemonID });
     },
