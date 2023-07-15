@@ -1,3 +1,6 @@
 .adjust {
   margin: 1rem;
 }
+.scrolling {
+  overflow-y: auto;
+}

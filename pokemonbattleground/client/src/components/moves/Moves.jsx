@@ -47,18 +47,20 @@ const Moves = () => {
           </div>
           <div className="flex flex-wrap flex-row gap-3 justify-center rounded-lg border-2 bg-indigo-300/[0.3] fix">
             <h1>Moves to Choose from</h1>
-            <div className="flex flex-wrap flex-row gap-3 justify-center rounded-lg border-2 bg-indigo-300/[0.3] fix">
-              {pokemonList.moves.map((pokemon) => (
-                // if(pokemon.move.type == "fire"){
+            <div className="max-h-[30rem] overflow-y-auto">
+              <div className="flex flex-wrap flex-row gap-3 justify-center rounded-lg bg-indigo-300/[0.3] fix">
+                {pokemonList.moves.map((pokemon) => (
+                  // if(pokemon.move.type == "fire"){
 
-                // }
-                <button
-                  key={pokemon.pokemonName}
-                  className="hover:bg-blue-800 basis-1/4 border-2 border-black rounded-lg"
-                >
-                  <h1>{pokemon.moveName}</h1>
-                </button>
-              ))}
+                  // }
+                  <button
+                    key={pokemon.pokemonName}
+                    className="hover:bg-blue-800 basis-1/4 border-2 border-black rounded-lg"
+                  >
+                    <h1>{pokemon.moveName}</h1>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
           <div>

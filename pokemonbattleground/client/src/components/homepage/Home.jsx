@@ -17,7 +17,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="font-sans flex flex-row justify-center text-center rounded-lg border-2 bg-indigo-300/[0.3] ">
+      <div className="font-sans flex flex-row justify-center text-center rounded-lg border-2 bg-indigo-300/[0.3] fix">
         First things first in order to play this fantastic game you must login
         to your previously made account, or make a new one by clicking either
         button at the top of your screen. You must first choose a pokemon to
@@ -35,22 +35,33 @@ const Home = () => {
       <div className="text-2xl font-bold font-sans flex flex-col justify-center text-center gap-2">
         <div className="flex flex-wrap flex-row gap-3 justify-center adjust items-center rounded-lg border-2 bg-indigo-300/[0.3] fix">
           Choose Your Pokemon
-          <div className="flex flex-wrap flex-row gap-3 justify-center adjust items-center rounded-lg border-2 bg-indigo-300/[0.3] fix">
-            {pokemonList.map((pokemon) => (
-              <div
-                key={pokemon.pokemonID}
-                className="basis-1/4 border-2 border-black rounded-lg justify-center items-center text-center place-items-center"
-              >
-                <Link to={{ pathname: `/moves/${pokemon.pokemonID}` }}>
-                  <p>{pokemon.pokemonName}</p>
-                  <div className="flex flex-wrap flex-row justify-center">
-                    <img src={pokemon.image[0]} alt="pokemon"></img>
-                  </div>
-                  <p>{pokemon.pokemonID}</p>
-                </Link>
-              </div>
-            ))}
+          <div className="max-h-[80rem] overflow-y-auto">
+            <div className="flex flex-wrap flex-row gap-3 justify-center adjust items-center rounded bg-indigo-300/[0.3] fix">
+              {pokemonList.map((pokemon) => (
+                <div
+                  key={pokemon.pokemonID}
+                  className="basis-1/4 justify-center items-center text-center place-items-center border-2 border-black rounded-lg"
+                >
+                  <Link to={{ pathname: `/moves/${pokemon.pokemonID}` }}>
+                    <p>{pokemon.pokemonName}</p>
+                    <div className="flex flex-wrap flex-row justify-center">
+                      <img src={pokemon.image[0]} alt="pokemon"></img>
+                    </div>
+                    <p>{pokemon.pokemonID}</p>
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
+        </div>
+        <div className="flex flex-row flex-wrap justify-center fix">
+          <a
+            href="https://pokemondb.net/type/old"
+            className="btn btn-primary"
+            target="_blank"
+          >
+            Pokemon Types Chart
+          </a>
         </div>
       </div>
     </>
