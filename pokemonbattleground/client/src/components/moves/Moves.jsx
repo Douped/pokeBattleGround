@@ -125,10 +125,6 @@ const Moves = () => {
     return { backgroundColor, backgroundColor2 };
   }
 
-  // var state = useState([]);
-  // var initialState = state[0]
-  //  var setStateFunction = state[1]
-
   var [choosenMoves, setChoosenMoves] = useState([]);
   var [movesLength, setMovesLength] = useState(0);
 
@@ -234,10 +230,6 @@ const Moves = () => {
                         setChoosenMoves(newChoosenMoves);
                         setMovesLength(movesLength - 1);
                       }
-
-                      // console.log(choosenMoves);
-
-                      // console.log(move);
                     }}
                   >
                     <h1>{pokemon}</h1>
@@ -247,7 +239,7 @@ const Moves = () => {
             </div>
           </div>
           <div>
-            <Link to="/battle">
+            <Link to={{ pathname: `/battle/${pokemonList.pokemonID}` }}>
               <button className="flex flex-wrap flex-row justify-center btn btn-primary items-center">
                 Battle
               </button>

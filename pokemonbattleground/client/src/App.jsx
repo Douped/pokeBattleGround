@@ -8,6 +8,8 @@ import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import Home from "./components/homepage/Home";
 import Moves from "./components/moves/Moves";
+import Login from "./components/login/Login";
+import Sign from "./components/sign-up/Sign";
 
 import "./style.css";
 
@@ -26,9 +28,15 @@ const App = () => {
           <Header />
           <div className="bg-Img">
             <Routes>
+              <Route path="/login" element={<Login />}></Route>
+              <Route path="/sign-up" element={<Sign />}></Route>
               <Route exact path="/" element={<Home />}></Route>
               <Route exact path="/moves/:pokemonID" element={<Moves />}></Route>
-              <Route exact path="/battle" element={<Battle />}></Route>
+              <Route
+                exact
+                path="/battle/:pokemonID"
+                element={<Battle />}
+              ></Route>
               <Route exact path="/end" element={<EndScreen />}></Route>
             </Routes>
           </div>

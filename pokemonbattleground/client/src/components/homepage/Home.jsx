@@ -2,7 +2,7 @@
 
 import { useQuery } from "@apollo/client";
 import { QUERY_POKEMON } from "../../utils/queries";
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./home.css";
 
