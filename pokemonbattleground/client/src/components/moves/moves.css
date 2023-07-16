@@ -1,3 +1,18 @@
 .fix {
   padding: 2rem;
 }
+
+.panel-moves[data-disabled="true"] {
+  background-color: gray;
+}
+.panel-moves[data-disabled="true"] * {
+  background-color: gray;
+  pointer-events: none;
+}
+.chosen-move {
+  cursor: pointer;
+  transition: color 300ms ease;
+}
+.chosen-move:hover {
+  color:red;
+}
