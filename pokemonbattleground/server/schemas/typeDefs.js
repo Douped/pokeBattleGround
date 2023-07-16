@@ -46,7 +46,6 @@ const typeDefs = gql`
     # description: String!
     image: [String!]
     moves: [String!]
-    health: String!
   }
 
   type Auth {
