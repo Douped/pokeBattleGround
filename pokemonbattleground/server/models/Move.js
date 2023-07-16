@@ -16,6 +16,6 @@ const movesSchema = new Schema({
   ailment: [{ type: String, required: false }],
   pp: { type: String, required: true },
 });
-const Moves = model("Moves", movesSchema);
+const Move = model("Move", movesSchema);
 
-module.exports = Moves;
+module.exports = Move;

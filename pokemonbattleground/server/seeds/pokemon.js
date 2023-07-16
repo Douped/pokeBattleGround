@@ -1,6 +1,6 @@
 const db = require("../config/connection");
 const { model } = require("mongoose");
-const { Pokemon, User, Moves, Presets } = require("../models");
+const { Pokemon, User, Move, Presets } = require("../models");
 const fetch = require("node-fetch");
 
 const pokimane = "https://pokeapi.co/api/v2/pokemon?limit=151&offset=0";
@@ -12,7 +12,7 @@ db.once("open", async () => {
   try {
     await Pokemon.deleteMany({});
     await User.deleteMany({});
-    await Moves.deleteMany({});
+    await Move.deleteMany({});
     // await Presets.deleteMany({});
     //get pokemon data
     const pokemonResponse = await fetch(pokimane);
@@ -25,7 +25,8 @@ db.once("open", async () => {
     await Promise.all(
       pokemonData.results.map(
         async (element) => {
-          const movesList = [];
+          const moveNameList = [];
+          const moveIDList = [];
           const res = await fetch(element.url);
           const pokemon = await res.json();
           const sprites = [
@@ -52,15 +53,19 @@ db.once("open", async () => {
         */
           //push the names of the filtered moves into the movesList array
           filteredMoves.forEach((move) => {
-            movesList.push(move.move.name);
+            moveNameList.push(move.move.name);
+            moveIDList.push(move.move.url.split("/")[6]);
           });
+          console.log(moveNameList, moveIDList);
+
           //push the pokemon data to the array
           pokemonDataJson.push({
             pokemonName: element.name,
             pokemonID: element.url.split("/")[6],
             image: sprites,
             types: pokemonTypes,
-            moves: movesList,
+            moves: moveNameList,
+            moveIDs: moveIDList,
           });
           //get data for each move and push it to the pokemonMovesDataJson array
         },
@@ -89,7 +94,7 @@ db.once("open", async () => {
     //create model with pokemonData
     await Pokemon.create(pokemonDataJson);
     //create model with movesData
-    await Moves.create(pokemonMovesDataJson);
+    await Move.create(pokemonMovesDataJson);
   } catch (err) {
     throw err;
   }
