@@ -17,6 +17,7 @@ const typeDefs = gql`
     # description: String
     image: [String!]
     moves: [String!]
+    moveIDs: [String!]
     types: [String!]
   }
 
@@ -56,7 +57,9 @@ const typeDefs = gql`
   type Query {
     me: User
     pokemon: [Pokemon]
+    moves: [Move]
     singlePokemon(pokemonID: String!): Pokemon
+    singleMove(moveID: String!): Move
   }
 
   type Mutation {

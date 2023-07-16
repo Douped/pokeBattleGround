@@ -1,6 +1,6 @@
 const User = require("./User");
 const Pokemon = require("./Pokemon");
 const Presets = require("./Presets");
-const Moves = require("./Moves");
+const Move = require("./Move");
 
-module.exports = { User, Pokemon, Presets, Moves };
+module.exports = { User, Pokemon, Presets, Move };
