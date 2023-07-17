@@ -60,6 +60,7 @@ const typeDefs = gql`
     moves: [Move]
     singlePokemon(pokemonID: String!): Pokemon
     singleMove(moveID: String!): Move
+    getPokemonMoveData(pokemonID: String!): [Move]
   }
 
   type Mutation {

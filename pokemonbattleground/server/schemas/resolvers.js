@@ -25,6 +25,18 @@ const resolvers = {
       console.log(move);
       return move;
     },
+    getPokemonMoveData: async (parent, { pokemonID }) => {
+      const pokemon = await Pokemon.findOne({ pokemonID: pokemonID });
+      if (!pokemon) {
+        throw new Error("Pokemon not found!");
+      }
+      const moveData = [];
+      for (const moveId of pokemon.moveIDs) {
+        const moveDetails = await Move.findOne({ moveID: moveId });
+        moveData.push(moveDetails);
+      }
+      return moveData;
+    },
   },
   Mutation: {
     login: async (parent, { email, password }) => {

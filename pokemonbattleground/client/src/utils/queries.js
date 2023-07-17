@@ -12,6 +12,39 @@ export const QUERY_POKEMON = gql`
   }
 `;
 
+export const QUERY_MOVES = gql`
+  query Moves {
+    moves {
+      moveID
+      moveName
+      description
+      status
+      type
+      speed
+      accuracy
+      damage
+      ailment
+      pp
+    }
+  }
+`;
+export const GET_POKEMON_MOVE_DATA = gql`
+  query GetPokemonMoveData($pokemonID: String!) {
+    getPokemonMoveData(pokemonID: $pokemonID) {
+      moveID
+      moveName
+      description
+      status
+      type
+      speed
+      accuracy
+      damage
+      ailment
+      pp
+    }
+  }
+`;
+
 export const QUERY_SINGLE = gql`
   query Query($pokemonId: String!) {
     singlePokemon(pokemonID: $pokemonId) {
