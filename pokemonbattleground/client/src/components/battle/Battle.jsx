@@ -1,16 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BattleMenu from "./BattleMenu";
 import BattleAnnouncer from "./BattleAnnouncer";
 import { useState } from "react";
+import { useBattleSequence } from "../../hooks/useBattleSequence";
 
 const Battle = () => {
-  const maxHealth = "100";
+  const [sequence, setSequence] = useState({});
 
-  const [userHealth, setUserHealth] = useState(maxHealth);
+  const {
+    turn,
+    inSequence,
+    userHealth,
+    opponentHealth,
+    announcerMessage,
+    //playerAnimation,
+    //opponentAnimation,
+  } = useBattleSequence(sequence);
 
-  const [opponentHealth, setOpponentHealth] = useState(maxHealth);
+  const aiChoice = useAIOpponent(turn);
 
-  const [announcerMessage, setAnnouncerMessage] = useState("");
+  useEffect(() => {
+    if (aiChoice && turn === 1 && !inSequence) {
+      setSequence({ turn, mode: aiChoice });
+    }
+  }, [turn, aiChoice, inSequence]);
 
   return (
     <>
@@ -65,10 +78,10 @@ const Battle = () => {
         />
 
         <BattleMenu
-          onMove1={() => console.log("move1")}
-          onMove2={() => console.log("move2")}
-          onMove3={() => console.log("move3")}
-          onMove4={() => console.log("move4")}
+          onMove1={() => setSequence({ turn, mode: moveOne })}
+          onMove2={() => setSequence({ turn, mode: moveTwo })}
+          onMove3={() => setSequence({ turn, mode: moveThree })}
+          onMove4={() => setSequence({ turn, mode: moveFour })}
         />
       </div>
     </>

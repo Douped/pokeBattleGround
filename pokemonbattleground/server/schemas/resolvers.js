@@ -20,9 +20,7 @@ const resolvers = {
       return Pokemon.findOne({ pokemonID: pokemonID });
     },
     singleMove: async (parent, { moveID }) => {
-      console.log(moveID);
       let move = await Move.findOne({ moveID: moveID });
-      console.log(move);
       return move;
     },
     getPokemonMoveData: async (parent, { pokemonID }) => {
