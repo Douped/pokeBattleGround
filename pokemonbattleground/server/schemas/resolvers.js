@@ -60,16 +60,20 @@ const resolvers = {
         console.log(error);
       }
     },
-    savePokemon: async (parent, { pokemonData }, context) => {
-      if (context.user) {
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { pokemon: pokemonData } },
-          { new: true }
-        );
-        return updatedUser;
+    savePokemon: async (parent, { pokemonData, moveData }, context) => {
+      try {
+        if (context.user) {
+          const updatedUser = await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $set: { pokemon: pokemonData, pokemonMoves: moveData } },
+            { new: true }
+          );
+          return updatedUser;
+        }
+        // throw new AuthenticationError("You need to be logged in!");
+      } catch (err) {
+        console.log(err);
       }
-      throw new AuthenticationError("You need to be logged in!");
     },
     removePokemon: async (parent, { pokemonID }, context) => {
       if (context.user) {

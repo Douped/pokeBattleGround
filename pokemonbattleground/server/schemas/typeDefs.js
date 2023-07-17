@@ -6,7 +6,8 @@ const typeDefs = gql`
     username: String!
     email: String!
     password: String!
-    pokemon: [Pokemon]
+    pokemon: String
+    pokemonMoves: [String]
     presets: [Preset]
   }
 
@@ -66,7 +67,7 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    savePokemon(pokemonData: PokemonInput!): User
+    savePokemon(pokemonData: String!, moveData: [String!]): User
     removePokemon(pokemonID: ID!): User
   }
 `;

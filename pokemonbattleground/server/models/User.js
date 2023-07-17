@@ -24,6 +24,14 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    pokemon: {
+      type: String,
+      required: false,
+    },
+    pokemonMoves: {
+      type: [String],
+      required: false,
+    },
   },
   // set this to use virtuals
   {
