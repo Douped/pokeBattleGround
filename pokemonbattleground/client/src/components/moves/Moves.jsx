@@ -19,6 +19,32 @@ const Moves = () => {
   let backgroundColor = "bg-gray-500";
   let backgroundColor2 = "bg-gray-500";
 
+  
+  // var state = useState([]);
+  // var initialState = state[0]
+  //  var setStateFunction = state[1]
+
+  var [choosenMoves, setChoosenMoves] = useState([]);
+  var [movesLength, setMovesLength] = useState(0);
+
+  function deleteMove(move) {
+    if (move === "Empty") return;
+
+    var newChoosenMoves = choosenMoves;
+    newChoosenMoves = newChoosenMoves.filter(
+      (currentMove) => currentMove !== move
+    );
+    setChoosenMoves(newChoosenMoves);
+    if (newChoosenMoves.length !== movesLength) {
+      setMovesLength(movesLength - 1);
+    }
+  } // deleteMove
+  
+  // //set user pokemon
+  // function setUserPokemon(data){
+  //   console.log(data.)
+  // }
+
   function getBackground() {
     switch (pokemonList.types[0]) {
       case "normal":
