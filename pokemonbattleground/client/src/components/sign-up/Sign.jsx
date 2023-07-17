@@ -5,6 +5,7 @@ import * as Yup from "yup";
 
 import { ADDUSER } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
+import { Link } from "react-router-dom";
 
 import Auth from "../../utils/auth";
 import "./sign.css";
@@ -88,17 +89,19 @@ const Sign = () => {
                 ))}
 
                 <div className="flex justify-end">
-                  <button
-                    className={`bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded border-b-4 border-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent ${
-                      isValid && !isSubmitting
-                        ? "cursor-pointer"
-                        : "cursor-not-allowed opacity-50"
-                    }`}
-                    type="submit"
-                    disabled={!isValid || isSubmitting}
-                  >
-                    Sign Up
-                  </button>
+                  <Link to="/">
+                    <button
+                      className={`bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded border-b-4 border-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent ${
+                        isValid && !isSubmitting
+                          ? "cursor-pointer"
+                          : "cursor-not-allowed opacity-50"
+                      }`}
+                      type="submit"
+                      disabled={!isValid || isSubmitting}
+                    >
+                      Sign Up
+                    </button>
+                  </Link>
                 </div>
               </Form>
             </div>

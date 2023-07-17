@@ -32,3 +32,14 @@ export const LOGIN = gql`
     }
   }
 `;
+
+export const SAVEPOKEMON = gql`
+  mutation Mutation($pokemonData: String!, $moveData: [String!]) {
+    savePokemon(pokemonData: $pokemonData, moveData: $moveData) {
+      username
+      email
+      pokemon
+      pokemonMoves
+    }
+  }
+`;

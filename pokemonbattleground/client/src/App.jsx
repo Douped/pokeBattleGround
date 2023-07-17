@@ -10,14 +10,19 @@ import Home from "./components/homepage/Home";
 import Moves from "./components/moves/Moves";
 import Login from "./components/login/Login";
 import Sign from "./components/sign-up/Sign";
+import Auth from "./utils/auth";
 
 import "./style.css";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
+const token = Auth.loggedIn() ? Auth.getToken() : null;
 const client = new ApolloClient({
   uri: "/graphql",
   cache: new InMemoryCache(),
+  headers: {
+    Authorization: token,
+  },
 });
 
 const App = () => {
