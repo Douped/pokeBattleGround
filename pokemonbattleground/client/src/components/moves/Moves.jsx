@@ -4,17 +4,24 @@ import { useState, useEffect } from "react";
 
 import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_SINGLE } from "../../utils/queries";
+import { QUERY_SINGLE, QUERY_GET_POKEMON_MOVE_DATA } from "../../utils/queries";
 
 import "./moves.css";
 
 const Moves = () => {
+  // get data for individual pokemon
   let { pokemonID } = useParams();
   let { loading, data } = useQuery(QUERY_SINGLE, {
     variables: { pokemonId: pokemonID },
   });
-
   const pokemonList = data?.singlePokemon || [];
+  console.log(pokemonList);
+
+  //get move data for individual pokemon
+  let{loading: moveLoad, data: moveData} = useQuery(QUERY_GET_POKEMON_MOVE_DATA, {variables: {pokemonID: pokemonID},});
+  const moveList = moveData?.getPokemonMoveData || [];
+
+  
 
   let backgroundColor = "bg-gray-500";
   let backgroundColor2 = "bg-gray-500";
@@ -149,23 +156,6 @@ const Moves = () => {
 
     return { backgroundColor, backgroundColor2 };
   }
-
-  var [choosenMoves, setChoosenMoves] = useState([]);
-  var [movesLength, setMovesLength] = useState(0);
-
-  function deleteMove(move) {
-    if (move === "Empty") return;
-
-    var newChoosenMoves = choosenMoves;
-    newChoosenMoves = newChoosenMoves.filter(
-      (currentMove) => currentMove !== move
-    );
-    setChoosenMoves(newChoosenMoves);
-    if (newChoosenMoves.length !== movesLength) {
-      setMovesLength(movesLength - 1);
-    }
-  }
-
   return (
     <>
       {loading ? (
@@ -235,9 +225,9 @@ const Moves = () => {
                 className="panel-moves flex flex-wrap flex-row gap-3 justify-center rounded-lg bg-indigo-300/[0.3] fix"
                 data-disabled={movesLength >= 4 ? "true" : "false"}
               >
-                {pokemonList.moves.map((pokemon) => (
+                {moveList.map((pokemon) => (
                   <button
-                    key={pokemon}
+                    key={pokemon.moveName}
                     className="hover:bg-blue-800 basis-1/4 border-2 border-black rounded-lg"
                     onClick={(event) => {
                       const move = event.target.textContent;
@@ -256,7 +246,7 @@ const Moves = () => {
                       }
                     }}
                   >
-                    <h1>{pokemon}</h1>
+                    <h1>{pokemon.moveName}</h1>
                   </button>
                 ))}
               </div>

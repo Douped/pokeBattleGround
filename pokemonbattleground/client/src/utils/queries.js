@@ -28,7 +28,7 @@ export const QUERY_MOVES = gql`
     }
   }
 `;
-export const GET_POKEMON_MOVE_DATA = gql`
+export const QUERY_GET_POKEMON_MOVE_DATA = gql`
   query GetPokemonMoveData($pokemonID: String!) {
     getPokemonMoveData(pokemonID: $pokemonID) {
       moveID
@@ -57,5 +57,3 @@ export const QUERY_SINGLE = gql`
     }
   }
 `;
-
-
