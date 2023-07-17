@@ -18,6 +18,7 @@ const typeDefs = gql`
     image: [String!]
     moves: [String!]
     moveIDs: [String!]
+    moveType: [String!]
     types: [String!]
   }
 

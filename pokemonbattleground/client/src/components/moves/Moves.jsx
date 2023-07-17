@@ -1,22 +1,21 @@
 import React from "react";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useParams, Link } from "react-router-dom";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_SINGLE } from "../../utils/queries";
 
 import "./moves.css";
 
 const Moves = () => {
   let { pokemonID } = useParams();
-  const { loading, data } = useQuery(QUERY_SINGLE, {
+  let { loading, data } = useQuery(QUERY_SINGLE, {
     variables: { pokemonId: pokemonID },
   });
 
   const pokemonList = data?.singlePokemon || [];
 
-  console.log(pokemonList);
   let backgroundColor = "bg-gray-500";
   let backgroundColor2 = "bg-gray-500";
 
@@ -125,10 +124,6 @@ const Moves = () => {
     return { backgroundColor, backgroundColor2 };
   }
 
-  // var state = useState([]);
-  // var initialState = state[0]
-  //  var setStateFunction = state[1]
-
   var [choosenMoves, setChoosenMoves] = useState([]);
   var [movesLength, setMovesLength] = useState(0);
 
@@ -143,7 +138,7 @@ const Moves = () => {
     if (newChoosenMoves.length !== movesLength) {
       setMovesLength(movesLength - 1);
     }
-  } // deleteMove
+  }
 
   return (
     <>
@@ -220,7 +215,6 @@ const Moves = () => {
                     className="hover:bg-blue-800 basis-1/4 border-2 border-black rounded-lg"
                     onClick={(event) => {
                       const move = event.target.textContent;
-
                       var newChoosenMoves = choosenMoves;
                       let moveExists = newChoosenMoves.includes(move);
                       if (!moveExists) {
@@ -234,10 +228,6 @@ const Moves = () => {
                         setChoosenMoves(newChoosenMoves);
                         setMovesLength(movesLength - 1);
                       }
-
-                      // console.log(choosenMoves);
-
-                      // console.log(move);
                     }}
                   >
                     <h1>{pokemon}</h1>

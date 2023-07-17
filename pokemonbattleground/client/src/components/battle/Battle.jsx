@@ -1,6 +1,17 @@
 import React from "react";
+import BattleMenu from "./BattleMenu";
+import BattleAnnouncer from "./BattleAnnouncer";
+import { useState } from "react";
 
 const Battle = () => {
+  const maxHealth = "100";
+
+  const [userHealth, setUserHealth] = useState(maxHealth);
+
+  const [opponentHealth, setOpponentHealth] = useState(maxHealth);
+
+  const [announcerMessage, setAnnouncerMessage] = useState("");
+
   return (
     <>
       <div className="flex flex-wrap flex-col border-2 border-black rounded-lg justify-end gap-3 h-screen">
@@ -10,9 +21,9 @@ const Battle = () => {
             <p>
               HP
               <progress
-                id="opponentHealth"
-                value="100"
-                max="100"
+                id="opponentmaxHealth"
+                value={opponentHealth}
+                max={maxHealth}
                 style={{ width: "95%" }}
               ></progress>
             </p>
@@ -22,7 +33,7 @@ const Battle = () => {
             <img></img>
           </div>
         </div>
-        <div class="flex flex-wrap flex-row border-2 border-black rounded-lg gap-3">
+        <div className="flex flex-wrap flex-row border-2 border-black rounded-lg gap-3">
           <div className="flex flex-wrap flex-col border-2 border-black rounded-lg justify-end">
             dwadawdwa
             <img></img>
@@ -34,22 +45,31 @@ const Battle = () => {
               <progress
                 className="w-90%"
                 id="opponentHealth"
-                value="100"
-                max="100"
+                value={userHealth}
+                max={maxHealth}
                 style={{ width: "95%" }}
               ></progress>
             </p>
           </div>
         </div>
-        <div class="flex flex-wrap flex-row gap-3 justify-center rounded-lg border-2 bg-indigo-300/[0.3] fix">
-          <h1>Random text</h1>
-        </div>
-        <div class="flex flex-wrap flex-row gap-3 justify-center rounded-lg border-2 bg-indigo-300/[0.3] fix">
-          <button className="btn basis-1/3">move 1</button>
-          <button className="btn basis-1/3">move 1</button>
-          <button className="btn basis-1/3">move 1</button>
-          <button className="btn basis-1/3">move 1</button>
-        </div>
+
+        <BattleAnnouncer
+          message={
+            announcerMessage ||
+            "what will" +
+              {
+                /*enter pokemon name here*/
+              } +
+              "do?"
+          }
+        />
+
+        <BattleMenu
+          onMove1={() => console.log("move1")}
+          onMove2={() => console.log("move2")}
+          onMove3={() => console.log("move3")}
+          onMove4={() => console.log("move4")}
+        />
       </div>
     </>
   );

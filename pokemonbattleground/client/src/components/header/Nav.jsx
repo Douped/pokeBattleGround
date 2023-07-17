@@ -1,10 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   return (
     <>
-      <a className="btn btn-primary">Login</a>
-      <a className="btn btn-primary">Sign-Up</a>
+      <Link to="/login">
+        <div className="btn btn-primary">Login</div>
+      </Link>
+      <Link to="/sign-up">
+        <div className="btn btn-primary">Sign-Up</div>
+      </Link>
     </>
   );
 };

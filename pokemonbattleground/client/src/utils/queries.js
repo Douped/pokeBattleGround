@@ -17,9 +17,12 @@ export const QUERY_SINGLE = gql`
     singlePokemon(pokemonID: $pokemonId) {
       image
       moves
+      moveIDs
       pokemonID
       pokemonName
       types
     }
   }
 `;
+
+

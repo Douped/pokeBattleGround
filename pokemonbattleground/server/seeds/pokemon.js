@@ -56,7 +56,6 @@ db.once("open", async () => {
             moveNameList.push(move.move.name);
             moveIDList.push(move.move.url.split("/")[6]);
           });
-          console.log(moveNameList, moveIDList);
 
           //push the pokemon data to the array
           pokemonDataJson.push({
@@ -91,6 +90,7 @@ db.once("open", async () => {
         })
       )
     );
+    console.log(pokemonMovesDataJson);
     //create model with pokemonData
     await Pokemon.create(pokemonDataJson);
     //create model with movesData
