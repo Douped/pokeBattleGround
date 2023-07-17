@@ -1,30 +1,8 @@
 import React, { useEffect } from "react";
 import BattleMenu from "./BattleMenu";
-import BattleAnnouncer from "./BattleAnnouncer";
 import { useState } from "react";
-import { useBattleSequence } from "../../hooks/useBattleSequence";
 
 const Battle = () => {
-  const [sequence, setSequence] = useState({});
-
-  const {
-    turn,
-    inSequence,
-    userHealth,
-    opponentHealth,
-    announcerMessage,
-    //playerAnimation,
-    //opponentAnimation,
-  } = useBattleSequence(sequence);
-
-  const aiChoice = useAIOpponent(turn);
-
-  useEffect(() => {
-    if (aiChoice && turn === 1 && !inSequence) {
-      setSequence({ turn, mode: aiChoice });
-    }
-  }, [turn, aiChoice, inSequence]);
-
   return (
     <>
       <div className="flex flex-wrap flex-col border-2 border-black rounded-lg justify-end gap-3 h-screen">
@@ -35,8 +13,8 @@ const Battle = () => {
               HP
               <progress
                 id="opponentmaxHealth"
-                value={opponentHealth}
-                max={maxHealth}
+                value="100"
+                max="100"
                 style={{ width: "95%" }}
               ></progress>
             </p>
@@ -58,30 +36,32 @@ const Battle = () => {
               <progress
                 className="w-90%"
                 id="opponentHealth"
-                value={userHealth}
-                max={maxHealth}
+                value="100"
+                max="100"
                 style={{ width: "95%" }}
               ></progress>
             </p>
           </div>
         </div>
 
-        <BattleAnnouncer
-          message={
-            announcerMessage ||
-            "what will" +
-              {
-                /*enter pokemon name here*/
-              } +
-              "do?"
-          }
-        />
+        {
+          /* <BattleAnnouncer
+          // message={
+          //   announcerMessage ||
+          //   "what will" +
+          //     {
+          //       /*enter pokemon name here*/
+          //     } +
+          //     "do?"
+          // }
+          // /> */
+        }
 
         <BattleMenu
-          onMove1={() => setSequence({ turn, mode: moveOne })}
-          onMove2={() => setSequence({ turn, mode: moveTwo })}
-          onMove3={() => setSequence({ turn, mode: moveThree })}
-          onMove4={() => setSequence({ turn, mode: moveFour })}
+          onMove1={() => console.log("hi")}
+          onMove2={() => console.log("hi")}
+          onMove3={() => console.log("hi")}
+          onMove4={() => console.log("hi")}
         />
       </div>
     </>

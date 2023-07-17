@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
@@ -15,18 +15,19 @@ const Moves = () => {
     variables: { pokemonId: pokemonID },
   });
   const pokemonList = data?.singlePokemon || [];
-  console.log(pokemonList);
 
   //get move data for individual pokemon
-  let{loading: moveLoad, data: moveData} = useQuery(QUERY_GET_POKEMON_MOVE_DATA, {variables: {pokemonID: pokemonID},});
+  let { loading: moveLoad, data: moveData } = useQuery(
+    QUERY_GET_POKEMON_MOVE_DATA,
+    { variables: { pokemonID: pokemonID } }
+  );
   const moveList = moveData?.getPokemonMoveData || [];
 
-  
+  console.log(moveList);
 
   let backgroundColor = "bg-gray-500";
   let backgroundColor2 = "bg-gray-500";
 
-  
   // var state = useState([]);
   // var initialState = state[0]
   //  var setStateFunction = state[1]
@@ -46,11 +47,66 @@ const Moves = () => {
       setMovesLength(movesLength - 1);
     }
   } // deleteMove
-  
+
   // //set user pokemon
   // function setUserPokemon(data){
   //   console.log(data.)
   // }
+  let backgroundColorForMoves;
+
+  function getBackgroundForMoves(i) {
+    switch (moveList[i].type) {
+      case "normal":
+        backgroundColorForMoves = "bg-gray-500";
+        break;
+      case "fire":
+        backgroundColorForMoves = "bg-red-500";
+        break;
+      case "water":
+        backgroundColorForMoves = "bg-blue-800";
+        break;
+      case "electric":
+        backgroundColorForMoves = "bg-yellow-300";
+        break;
+      case "grass":
+        backgroundColorForMoves = "bg-green-500";
+        break;
+      case "ice":
+        backgroundColorForMoves = "bg-cyan-300";
+        break;
+      case "fighting":
+        backgroundColorForMoves = "bg-orange-800";
+        break;
+      case "poison":
+        backgroundColorForMoves = "bg-fuchsia-700";
+        break;
+      case "ground":
+        backgroundColorForMoves = "bg-orange-300";
+        break;
+      case "flying":
+        backgroundColorForMoves = "bg-sky-300";
+        break;
+      case "psychic":
+        backgroundColorForMoves = "bg-pink-500";
+        break;
+      case "bug":
+        backgroundColorForMoves = "bg-lime-500";
+        break;
+      case "rock":
+        backgroundColorForMoves = "bg-yellow-700";
+        break;
+      case "ghost":
+        backgroundColorForMoves = "bg-purple-800";
+        break;
+      case "dragon":
+        backgroundColorForMoves = "bg-violet-900";
+        break;
+      default:
+        backgroundColorForMoves = "bg-gray-500";
+    }
+
+    return backgroundColorForMoves;
+  }
 
   function getBackground() {
     switch (pokemonList.types[0]) {
@@ -156,6 +212,12 @@ const Moves = () => {
 
     return { backgroundColor, backgroundColor2 };
   }
+
+  function userPokemon() {
+    // const [pokemonMutation] = useMutation(SAVEPOKEMON);
+    console.log("hi");
+  }
+
   return (
     <>
       {loading ? (
@@ -225,10 +287,12 @@ const Moves = () => {
                 className="panel-moves flex flex-wrap flex-row gap-3 justify-center rounded-lg bg-indigo-300/[0.3] fix"
                 data-disabled={movesLength >= 4 ? "true" : "false"}
               >
-                {moveList.map((pokemon) => (
+                {moveList.map((pokemon, index) => (
                   <button
                     key={pokemon.moveName}
-                    className="hover:bg-blue-800 basis-1/4 border-2 border-black rounded-lg"
+                    className={`basis-1/4 border-2 border-black rounded-lg ${getBackgroundForMoves(
+                      index
+                    )}`}
                     onClick={(event) => {
                       const move = event.target.textContent;
                       var newChoosenMoves = choosenMoves;
@@ -254,7 +318,12 @@ const Moves = () => {
           </div>
           <div>
             <Link to="/battle">
-              <button className="flex flex-wrap flex-row justify-center btn btn-primary items-center">
+              <button
+                className="flex flex-wrap flex-row justify-center btn btn-primary items-center"
+                onClick={() => {
+                  userPokemon();
+                }}
+              >
                 Battle
               </button>
             </Link>
