@@ -90,7 +90,6 @@ db.once("open", async () => {
         })
       )
     );
-    console.log(pokemonMovesDataJson);
     //create model with pokemonData
     await Pokemon.create(pokemonDataJson);
     //create model with movesData

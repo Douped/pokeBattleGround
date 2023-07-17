@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { LOGIN } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
+import { AiFillHome } from "react-icons/ai";
 
 import Auth from "../../utils/auth";
 import "./login.css";
@@ -79,18 +80,19 @@ const Login = () => {
                 ))}
 
                 <div className="flex justify-end">
+                  <button
+                    className={`bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded border-b-4 border-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent ${
+                      isValid && !isSubmitting
+                        ? "cursor-pointer"
+                        : "cursor-not-allowed opacity-50"
+                    }`}
+                    type="submit"
+                    disabled={!isValid || isSubmitting}
+                  >
+                    Login
+                  </button>
                   <Link to="/">
-                    <button
-                      className={`bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded border-b-4 border-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent ${
-                        isValid && !isSubmitting
-                          ? "cursor-pointer"
-                          : "cursor-not-allowed opacity-50"
-                      }`}
-                      type="submit"
-                      disabled={!isValid || isSubmitting}
-                    >
-                      Login
-                    </button>
+                    <AiFillHome className="text-4xl text-blue-500" />
                   </Link>
                 </div>
               </Form>
