@@ -11,6 +11,14 @@ export const QUERY_POKEMON = gql`
     }
   }
 `;
+export const QUERY_GET_USER_DATA = gql`
+  query getUserData {
+    me {
+      pokemon
+      pokemonMoves
+    }
+  }
+`;
 
 export const QUERY_MOVES = gql`
   query Moves {
