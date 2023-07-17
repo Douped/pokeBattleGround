@@ -32,11 +32,7 @@ const App = () => {
               <Route path="/sign-up" element={<Sign />}></Route>
               <Route exact path="/" element={<Home />}></Route>
               <Route exact path="/moves/:pokemonID" element={<Moves />}></Route>
-              <Route
-                exact
-                path="/battle/:pokemonID"
-                element={<Battle />}
-              ></Route>
+              <Route exact path="/battle/" element={<Battle />}></Route>
               <Route exact path="/end" element={<EndScreen />}></Route>
             </Routes>
           </div>

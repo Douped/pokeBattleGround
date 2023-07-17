@@ -1,73 +1,100 @@
 import React from "react";
-import { SiPokemon } from "react-icons/si";
+
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+
+import { LOGIN } from "../../utils/mutations";
+import { useMutation } from "@apollo/client";
+
+import Auth from "../../utils/auth";
+import "./login.css";
 
 const Login = () => {
+  const [login] = useMutation(LOGIN);
+
+  const formFields = [
+    { label: "Email", name: "email", type: "email" },
+    { label: "Password", name: "password", type: "password" },
+  ];
+
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .email("Invalid email address.")
+      .required("Email is required."),
+    password: Yup.string()
+      .min(5, "Password must be at least 5 characters.")
+      .required("Password is required."),
+  });
+
+  const initialValues = {
+    email: "",
+    password: "",
+  };
+
+  const handleSubmit = async (userValues) => {
+    console.log(userValues);
+    const { email, password } = userValues;
+    const { data } = await login({
+      variables: { email, password },
+    });
+    console.log(data);
+    Auth.login(data.addUser.token);
+    window.location.href = "/";
+  };
+
   return (
-    <div>
-      <section class="bg-white">
-        <div class="lg:grid lg:min-h-screen lg:grid-cols-12">
-          <aside class="relative block h-16 lg:order-last lg:col-span-5 lg:h-full xl:col-span-6">
-            <img
-              alt="Pattern"
-              src="https://e0.pxfuel.com/wallpapers/261/436/desktop-wallpaper-phone-and-background-in-2020-pikachu-iphone-pikachu-cute-pokemon-cool-pikachu.jpg"
-              class="absolute inset-0 h-full w-full object-cover"
-            />
-          </aside>
+    <div className="flex items-center justify-center h-screen">
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ isValid, isSubmitting }) => (
+          <div className="relative mx-6 md:mx-auto w-full md:w-1/2 lg:w-1/3">
+            <div className="shadow-lg form-bg rounded-lg p-8">
+              <h1 className="text-center text-2xl">Sign Up</h1>
 
-          <main class="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
-            <div class="max-w-xl lg:max-w-3xl">
-              <a class="block text-blue-600" href="/">
-                <span class="sr-only">Home</span>
-              </a>
-              <SiPokemon className="text-9xl text-center" />
-              <h1 class="mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-                Welcome to Pokemon Battleground
-              </h1>
+              <Form className="pt-6 pb-2 my-2">
+                {formFields.map((field, index) => (
+                  <div className="mb-4" key={index}>
+                    <label
+                      className="block text-sm font-bold mb-2"
+                      htmlFor={field.name}
+                    >
+                      {field.label}
+                    </label>
+                    <Field
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                      type={field.type}
+                      id={field.name}
+                      name={field.name}
+                    />
+                    <ErrorMessage
+                      className="text-red-500 text-sm"
+                      name={field.name}
+                      component="p"
+                    />
+                  </div>
+                ))}
 
-              <p class="mt-4 leading-relaxed text-gray-500">Login and Battle</p>
-
-              <form action="#" class="mt-8 grid grid-cols-6 gap-6">
-                <div class="col-span-6">
-                  <label
-                    for="Email"
-                    class="block text-sm font-medium text-gray-700"
+                <div className="flex justify-end">
+                  <button
+                    className={`bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded border-b-4 border-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent ${
+                      isValid && !isSubmitting
+                        ? "cursor-pointer"
+                        : "cursor-not-allowed opacity-50"
+                    }`}
+                    type="submit"
+                    disabled={!isValid || isSubmitting}
                   >
-                    Email
-                  </label>
-
-                  <input
-                    type="email"
-                    id="Email"
-                    name="email"
-                    class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                  />
-                </div>
-
-                <div class="col-span-6 sm:col-span-3">
-                  <label
-                    for="Password"
-                    class="block text-sm font-medium text-gray-700"
-                  >
-                    Password
-                  </label>
-
-                  <input
-                    type="password"
-                    id="Password"
-                    name="password"
-                    class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                  />
-                </div>
-                <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
-                  <button class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
-                    Create an account
+                    Sign Up
                   </button>
                 </div>
-              </form>
+              </Form>
             </div>
-          </main>
-        </div>
-      </section>
+          </div>
+        )}
+      </Formik>
     </div>
   );
 };

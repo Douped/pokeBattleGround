@@ -5,10 +5,10 @@ const Nav = () => {
   return (
     <>
       <Link to="/login">
-        <a className="btn btn-primary">Login</a>
+        <div className="btn btn-primary">Login</div>
       </Link>
       <Link to="/sign-up">
-        <a className="btn btn-primary">Sign-Up</a>
+        <div className="btn btn-primary">Sign-Up</div>
       </Link>
     </>
   );

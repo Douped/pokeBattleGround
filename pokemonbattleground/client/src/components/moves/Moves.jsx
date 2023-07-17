@@ -1,22 +1,21 @@
 import React from "react";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useParams, Link } from "react-router-dom";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_SINGLE } from "../../utils/queries";
 
 import "./moves.css";
 
 const Moves = () => {
   let { pokemonID } = useParams();
-  const { loading, data } = useQuery(QUERY_SINGLE, {
+  let { loading, data } = useQuery(QUERY_SINGLE, {
     variables: { pokemonId: pokemonID },
   });
 
   const pokemonList = data?.singlePokemon || [];
 
-  console.log(pokemonList);
   let backgroundColor = "bg-gray-500";
   let backgroundColor2 = "bg-gray-500";
 
@@ -139,7 +138,7 @@ const Moves = () => {
     if (newChoosenMoves.length !== movesLength) {
       setMovesLength(movesLength - 1);
     }
-  } // deleteMove
+  }
 
   return (
     <>
@@ -216,7 +215,6 @@ const Moves = () => {
                     className="hover:bg-blue-800 basis-1/4 border-2 border-black rounded-lg"
                     onClick={(event) => {
                       const move = event.target.textContent;
-
                       var newChoosenMoves = choosenMoves;
                       let moveExists = newChoosenMoves.includes(move);
                       if (!moveExists) {
@@ -239,7 +237,7 @@ const Moves = () => {
             </div>
           </div>
           <div>
-            <Link to={{ pathname: `/battle/${pokemonList.pokemonID}` }}>
+            <Link to="/battle">
               <button className="flex flex-wrap flex-row justify-center btn btn-primary items-center">
                 Battle
               </button>

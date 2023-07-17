@@ -14,5 +14,8 @@
   transition: color 300ms ease;
 }
 .chosen-move:hover {
-  color:red;
+  color: red;
+}
+.hidden {
+  display: none;
 }

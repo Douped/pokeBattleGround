@@ -17,11 +17,13 @@ const resolvers = {
       return Move.find();
     },
     singlePokemon: async (parent, { pokemonID }) => {
-      console.log(pokemonID);
       return Pokemon.findOne({ pokemonID: pokemonID });
     },
     singleMove: async (parent, { moveID }) => {
-      return Move.findOne({ moveID: moveID });
+      console.log(moveID);
+      let move = await Move.findOne({ moveID: moveID });
+      console.log(move);
+      return move;
     },
   },
   Mutation: {
