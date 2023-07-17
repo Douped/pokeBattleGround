@@ -25,8 +25,6 @@ const Moves = () => {
   );
   const moveList = moveData?.getPokemonMoveData || [];
 
-  console.log(moveList);
-
   let backgroundColor = "bg-gray-500";
   let backgroundColor2 = "bg-gray-500";
 

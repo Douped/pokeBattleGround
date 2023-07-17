@@ -1,9 +1,18 @@
 import React, { useEffect } from "react";
 import BattleMenu from "./BattleMenu";
+import { useQuery, useMutation } from "@apollo/client";
 import { useState } from "react";
-import { QUERY_SINGLE, QUERY_GET_POKEMON_MOVE_DATA } from "../../utils/queries";
+import {
+  QUERY_GET_USER_DATA,
+  QUERY_SINGLE,
+  QUERY_GET_POKEMON_MOVE_DATA,
+} from "../../utils/queries";
 
 const Battle = () => {
+  let { loading, data } = useQuery(QUERY_GET_USER_DATA, {});
+  const pokemonList = data?.me || [];
+  console.log(pokemonList);
+
   return (
     <>
       <div className="flex flex-wrap flex-col border-2 border-black rounded-lg justify-end gap-3 h-screen">
