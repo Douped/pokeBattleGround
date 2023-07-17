@@ -5,6 +5,8 @@ import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_SINGLE, QUERY_GET_POKEMON_MOVE_DATA } from "../../utils/queries";
+import { SAVEPOKEMON } from "../../utils/mutations";
+import Auth from "../../utils/auth";
 
 import "./moves.css";
 
@@ -213,10 +215,23 @@ const Moves = () => {
     return { backgroundColor, backgroundColor2 };
   }
 
-  function userPokemon() {
-    // const [pokemonMutation] = useMutation(SAVEPOKEMON);
-    console.log("hi");
-  }
+  const [savePokemon] = useMutation(SAVEPOKEMON);
+
+  const handleBattleClick = async () => {
+    try {
+      const token = Auth.loggedIn() ? Auth.getToken() : null;
+      console.log(token);
+      const variables = {
+        pokemonData: pokemonID,
+        moveData: choosenMoves,
+      };
+      console.log(variables);
+      await savePokemon({ variables });
+      console.log("mutation success!");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -289,7 +304,7 @@ const Moves = () => {
               >
                 {moveList.map((pokemon, index) => (
                   <button
-                    key={pokemon.moveName}
+                    key={pokemon.moveID}
                     className={`basis-1/4 border-2 border-black rounded-lg ${getBackgroundForMoves(
                       index
                     )}`}
@@ -321,7 +336,7 @@ const Moves = () => {
               <button
                 className="flex flex-wrap flex-row justify-center btn btn-primary items-center"
                 onClick={() => {
-                  userPokemon();
+                  handleBattleClick();
                 }}
               >
                 Battle

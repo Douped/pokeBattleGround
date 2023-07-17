@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import BattleMenu from "./BattleMenu";
 import { useState } from "react";
+import { QUERY_SINGLE, QUERY_GET_POKEMON_MOVE_DATA } from "../../utils/queries";
 
 const Battle = () => {
   return (
