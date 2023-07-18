@@ -11,7 +11,7 @@ const Footer = () => {
         <div className="flex flex-col gap-3 text-center">
           <strong>Albi's Socials</strong>
           <div className="flex flex-row gap-10 text-4xl justify-center">
-            <a href="https://linkedin.com" target="_blank">
+            <a href="https://linkedin.com/" target="_blank">
               <BsLinkedin />
             </a>
             <a
@@ -28,7 +28,13 @@ const Footer = () => {
         <div className="flex flex-col gap-3 text-center">
           <strong>Tony's Socials</strong>
           <div className="flex flex-row gap-10 text-4xl justify-center">
+
+            <a
+              href="https://www.linkedin.com/in/anthony-rooyakkers-ba968a273/"
+              target="_blank"
+            >
             <a href="https://www.linkedin.com/in/anthony-rooyakkers-ba968a273/" target="_blank">
+
               <BsLinkedin />
             </a>
             <a href="https://github.com/Douped" target="_blank">
