@@ -7,12 +7,12 @@ import {
   QUERY_GET_POKEMON_MOVE_DATA,
   QUERY_GET_OPPONENT_MOVES,
 } from "../../utils/queries";
-
+import { useNavigate } from "react-router-dom";
 import { RANDOMIZEOPPONENTMOVES } from "../../utils/mutations";
 
 const Battle = () => {
-  const [opponentHealth, setOpponentHealth] = useState("");
-  const [playerHealth, setPlayerHealth] = useState("");
+  const [opponentHealth, setOpponentHealth] = useState(300);
+  const [playerHealth, setPlayerHealth] = useState(200);
 
 
   const [randomizeOpponentMoves] = useMutation(RANDOMIZEOPPONENTMOVES);
@@ -128,60 +128,77 @@ const Battle = () => {
 
   //generate an ai move
 
-  let dmg = "0";
-  let aiDmg = "0";
+  let dmg = 0;
+  let aiDmg = 0;
 
   function generateAIMove() {
-    const options = Math.floor(Math.random() * brockMoves.length);
-    const aiMove = brockMoves[options];
-
+    const physicalMoves = brockMoves.filter((move) => move.status === "physical");
+    const specialMoves = brockMoves.filter((move) => move.status === "special");
+    const options = Math.floor(Math.random() * (physicalMoves.length + specialMoves.length));
+    const aiMove = options < physicalMoves.length ? physicalMoves[options] : specialMoves[options - physicalMoves.length];
+    console.log(aiMove);
     return aiMove;
   }
 
   
 
   function calcDmg(usedMove) {
-    let dmgValue = '';
-    if(usedMove.damage){
-      console.log(usedMove.damage);
-      dmgValue = usedMove.damage;
+    let dmgValue = 0;
+    if (usedMove.damage) {
+      dmgValue = parseInt(usedMove.damage);
+      console.log(dmgValue);
     }
-
-
-
     return dmgValue;
   }
+  
+  //use history
+  const navigate = useNavigate();
 
-  function handleMove(move) {
+ function handleMove(move) {
+  const opponentMaxHealth = 100;
+  const playerMaxHealth = 100;
+  let dmg = 0;
+  let aiDmg = 0;
 
-    console.log(move);
-    const playerMove = move;
+  const playerMove = move;
 
-    if (playerMove.status === "special" || "physical") {
-      dmg = calcDmg(playerMove);
-    }
-
-    const updatedOpponentHealth = opponentHealth - dmg;
-
-    if (updatedOpponentHealth <= 0) {
-      return;
-    }
-
-    const aiMove = generateAIMove();
-
-    if (aiMove == "special" || "physical") {
-      aiDmg = calcDmg(aiMove);
-    }
-
-    const updatedPlayerHealth = playerHealth - aiDmg;
-
-    if (updatedOpponentHealth <= 0) {
-      return;
-    }
-
-    setOpponentHealth(updatedOpponentHealth);
-    setPlayerHealth(updatedPlayerHealth);
+  if (playerMove.status === "special" || playerMove.status === "physical") {
+    dmg = calcDmg(playerMove);
   }
+  
+  setOpponentHealth(opponentHealth - dmg); // Directly set the opponent's health
+  console.log(opponentHealth);
+  if (opponentHealth - dmg <= 0) {
+    console.log('opp');
+    navigate("/win");
+    // Opponent's health reached or below zero, handle the defeat or end of the battle
+    return;
+  }
+
+  const aiMove = generateAIMove();
+
+  if (aiMove.status === "special" || aiMove.status === "physical") {
+    aiDmg = calcDmg(aiMove);
+  }
+  
+  setPlayerHealth(playerHealth - aiDmg); // Directly set the player's health
+  console.log(playerHealth);
+
+  if (playerHealth - aiDmg <= 0) {
+    // Player's health reached or below zero, handle the defeat or end of the battle
+    console.log('player');
+    navigate("/defeat");
+    return;
+  }
+
+  document.getElementById("opponentHealth").value = opponentMaxHealth - dmg;
+  document.getElementById("playerHealth").value = playerMaxHealth - aiDmg;
+}
+
+
+
+// ...
+
 
   return (
     <>
@@ -192,11 +209,12 @@ const Battle = () => {
             <p>
               HP
               <progress
-                id="opponentmaxHealth"
-                value="100"
-                max="100"
-                style={{ width: "95%" }}
-              ></progress>
+              className="w-90%"
+              id="opponentHealth"
+              value={opponentHealth}
+              max={100} 
+              style={{ width: "95%" }}
+            ></progress>
             </p>
           </div>
           {brocksPokemon.image && brocksPokemon.image[1] && (
@@ -216,12 +234,12 @@ const Battle = () => {
             <p>
               HP
               <progress
-                className="w-90%"
-                id="opponentHealth"
-                value="100"
-                max="100"
-                style={{ width: "95%" }}
-              ></progress>
+              className="w-90%"
+              id="playerHealth"
+              value={playerHealth}
+              max={100}
+              style={{ width: "95%" }}
+            ></progress>
             </p>
           </div>
         </div>
@@ -240,39 +258,28 @@ const Battle = () => {
         }
       </div>
       <div className="flex flex-wrap flex-row gap-3 justify-center rounded-lg border-2 bg-indigo-300/[0.3] fix">
-{userMoves[0] && userMoves[0].moveName && (
-          <button
-            className="btn basis-1/3"
-            onClick={()=>handleMove(userMoves[0].moveName)}
-          >
-            {userMoves[0].moveName}
-          </button>
-        )}
-        {userMoves[1] && userMoves[1].moveName && (
-          <button
-            className="btn basis-1/3"
-            onClick={()=>handleMove(userMoves[1].moveName)}
-          >
-            {userMoves[1].moveName}
-          </button>
-        )}
-        {userMoves[2] && userMoves[2].moveName && (
-          <button
-            className="btn basis-1/3"
-            onClick={()=>handleMove(userMoves[2].moveName)}
-          >
-            {userMoves[2].moveName}
-          </button>
-        )}
-        {userMoves[3] && userMoves[3].moveName && (
-          <button
-            className="btn basis-1/3"
-            onClick={()=>handleMove(userMoves[3].moveName)}
-          >
-            {userMoves[3].moveName}
-          </button>
-    )}
-      </div>
+  {userMoves[0] && userMoves[0].moveName && (
+    <button className="btn basis-1/3" onClick={() => handleMove(userMoves[0])}>
+      {userMoves[0].moveName}
+    </button>
+  )}
+  {userMoves[1] && userMoves[1].moveName && (
+    <button className="btn basis-1/3" onClick={() => handleMove(userMoves[1])}>
+      {userMoves[1].moveName}
+    </button>
+  )}
+  {userMoves[2] && userMoves[2].moveName && (
+    <button className="btn basis-1/3" onClick={() => handleMove(userMoves[2])}>
+      {userMoves[2].moveName}
+    </button>
+  )}
+  {userMoves[3] && userMoves[3].moveName && (
+    <button className="btn basis-1/3" onClick={() => handleMove(userMoves[3])}>
+      {userMoves[3].moveName}
+    </button>
+  )}
+</div>
+
     </>
   );
 };
