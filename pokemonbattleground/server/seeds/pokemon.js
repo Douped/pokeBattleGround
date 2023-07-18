@@ -1,6 +1,6 @@
 const db = require("../config/connection");
 const { model } = require("mongoose");
-const { Pokemon, User, Move, Presets } = require("../models");
+const { Pokemon, User, Move, Opponent } = require("../models");
 const fetch = require("node-fetch");
 
 const pokimane = "https://pokeapi.co/api/v2/pokemon?limit=151&offset=0";
@@ -13,6 +13,7 @@ db.once("open", async () => {
     await Pokemon.deleteMany({});
     await User.deleteMany({});
     await Move.deleteMany({});
+    await Opponent.deleteMany({});
     // await Presets.deleteMany({});
     //get pokemon data
     const pokemonResponse = await fetch(pokimane);
@@ -97,6 +98,57 @@ db.once("open", async () => {
   } catch (err) {
     throw err;
   }
+
+  try {
+    // Generate a random pokemon ID
+    const randomID = Math.floor(Math.random() * 151) + 1;
+
+    // Find the random pokemon
+    const randomPokemon = await Pokemon.findOne({
+      pokemonID: randomID.toString(),
+    });
+
+    const randomMoves = [];
+
+    // If randomPokemon has moves
+    if (randomPokemon.moveIDs.length > 0) {
+      // Generate an array of unique random indices from moveIDs
+      const uniqueRandomIndices = [];
+      while (uniqueRandomIndices.length < randomPokemon.moveIDs.length) {
+        const randomIndex = Math.floor(
+          Math.random() * randomPokemon.moveIDs.length
+        );
+        if (!uniqueRandomIndices.includes(randomIndex)) {
+          uniqueRandomIndices.push(randomIndex);
+        }
+      }
+      // Populate randomMoves with moves from moveIDs using the unique indices
+      for (let i = 0; i < 4; i++) {
+        if (i < randomPokemon.moveIDs.length) {
+          const moveIndex = uniqueRandomIndices[i];
+          randomMoves.push(randomPokemon.moveIDs[moveIndex]);
+        } else {
+          // For moves beyond the available moves, push null or 0
+          randomMoves.push("0");
+        }
+      }
+    } else {
+      // If randomPokemon has no moves, populate randomMoves with null or 0
+      for (let i = 0; i < 4; i++) {
+        randomMoves.push("0");
+      }
+    }
+    console.log(randomMoves);
+    await Opponent.create({
+      opponentName: "brock",
+      pokemon: randomID.toString(),
+      moves: randomMoves,
+    });
+    const opponent = await Opponent.find();
+  } catch (err) {
+    console.log(err);
+  }
+
   console.log("Done");
   process.exit(0);
 });
