@@ -40,6 +40,7 @@ If you want to reach me with additional question click my email link here: Krasn
 ## Links
 
 Heroku:https://radiant-peak-95315-846b2c46030b.herokuapp.com/
+Presentation: https://docs.google.com/presentation/d/1u3SqtZ8oA4h0vyfLrYQlM1KPKwEIfdtnjnHUu1ysrbs/edit?usp=sharing
 
 ## Screenshot
 
