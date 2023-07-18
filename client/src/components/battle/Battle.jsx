@@ -29,7 +29,6 @@ const Battle = () => {
   const userPokemon = firstPokemon?.singlePokemon || [];
   //console.log(userPokemon);
 
-  //copied stuff
 
   let { loading: opponentLoading, data: opponentQueryData } = useQuery(
     QUERY_GET_OPPONENT_MOVES,
