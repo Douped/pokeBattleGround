@@ -11,8 +11,8 @@ import { useNavigate } from "react-router-dom";
 import { RANDOMIZEOPPONENTMOVES } from "../../utils/mutations";
 
 const Battle = () => {
-  const [opponentHealth, setOpponentHealth] = useState(300);
-  const [playerHealth, setPlayerHealth] = useState(200);
+  const [opponentHealth, setOpponentHealth] = useState(500);
+  const [playerHealth, setPlayerHealth] = useState(500);
 
 
   const [randomizeOpponentMoves] = useMutation(RANDOMIZEOPPONENTMOVES);
