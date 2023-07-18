@@ -43,3 +43,13 @@ export const SAVEPOKEMON = gql`
     }
   }
 `;
+
+export const RANDOMIZEOPPONENTMOVES = gql`
+  mutation randomizeOpponentMoves {
+    randomizeOpponentMoves {
+      pokemon
+      moves
+      opponentName
+    }
+  }
+`;
