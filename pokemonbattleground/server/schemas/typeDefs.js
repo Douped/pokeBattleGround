@@ -23,6 +23,13 @@ const typeDefs = gql`
     types: [String!]
   }
 
+  type Opponent {
+    opponentName: String
+    pokemon: String
+    moves: [String!]
+    health: String
+  }
+
   type Move {
     moveID: String!
     moveName: String!
@@ -62,6 +69,7 @@ const typeDefs = gql`
     singlePokemon(pokemonID: String!): Pokemon
     singleMove(moveID: String!): Move
     getPokemonMoveData(pokemonID: String!): [Move]
+    getOpponentMoves: [Opponent]
   }
 
   type Mutation {
@@ -69,6 +77,7 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     savePokemon(pokemonData: String!, moveData: [String!]): User
     removePokemon(pokemonID: ID!): User
+    randomizeOpponentMoves: Opponent
   }
 `;
 
