@@ -11,7 +11,7 @@ const Footer = () => {
         <div className="flex flex-col gap-3 text-center">
           <strong>Albi's Socials</strong>
           <div className="flex flex-row gap-10 text-4xl justify-center">
-            <a href="https://linkedin.com" target="_blank">
+            <a href="https://linkedin.com/" target="_blank">
               <BsLinkedin />
             </a>
             <a
@@ -28,21 +28,23 @@ const Footer = () => {
         <div className="flex flex-col gap-3 text-center">
           <strong>Tony's Socials</strong>
           <div className="flex flex-row gap-10 text-4xl justify-center">
-            <a href="https://linkedin.com" target="_blank">
+            <a
+              href="https://www.linkedin.com/in/anthony-rooyakkers-ba968a273/"
+              target="_blank"
+            >
               <BsLinkedin />
             </a>
-            <a href="https://github.com/" target="_blank">
+            <a href="https://github.com/Douped" target="_blank">
               <BsGithub />
             </a>
-            <a href="https://www.instagram.com/" target="_blank">
+            <a href="https://www.instagram.com/tony.tuesday/" target="_blank">
               <BsInstagram />
             </a>
           </div>
         </div>
 
         <small className="font-sans justify-center flex flex-row">
-          &copy; Albi Krasniqi Tony R(Cannot spell your last name not even
-          attempting)
+          &copy; Albi Krasniqi -- Tony Rooyakkers
         </small>
       </footer>
     </>

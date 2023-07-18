@@ -329,16 +329,20 @@ const Moves = () => {
             </div>
           </div>
           <div>
-            <Link to="/battle">
-              <button
-                className="flex flex-wrap flex-row justify-center btn btn-primary items-center"
-                onClick={() => {
-                  handleBattleClick();
-                }}
-              >
-                Battle
-              </button>
-            </Link>
+            {Auth.loggedIn() ? (
+              <Link to="/battle">
+                <button
+                  className="flex flex-wrap flex-row justify-center btn btn-primary items-center"
+                  onClick={() => {
+                    handleBattleClick();
+                  }}
+                >
+                  Battle
+                </button>
+              </Link>
+            ) : (
+              <div>Log in to battle other pokemon!</div>
+            )}
           </div>
         </div>
       )}
