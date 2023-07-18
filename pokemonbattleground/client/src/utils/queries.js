@@ -20,6 +20,17 @@ export const QUERY_GET_USER_DATA = gql`
   }
 `;
 
+export const QUERY_GET_OPPONENT_MOVES = gql`
+  query getOpponentMoves {
+    getOpponentMoves {
+      opponentName
+      pokemon
+      moves
+      health
+    }
+  }
+`;
+
 export const QUERY_MOVES = gql`
   query Moves {
     moves {
