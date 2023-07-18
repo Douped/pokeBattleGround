@@ -15,7 +15,7 @@ const Battle = () => {
   
   let { loading, data, refetch } = useQuery(QUERY_GET_USER_DATA, {});
   const pokemonList = data?.me || [];
-  // console.log(pokemonList);
+  //console.log(pokemonList);
 
   let { loading: singlePokemonLoading, data: firstPokemon } = useQuery(
     QUERY_SINGLE,
@@ -23,7 +23,7 @@ const Battle = () => {
   );
 
   const userPokemon = firstPokemon?.singlePokemon || [];
-  // console.log(userPokemon);
+  //console.log(userPokemon);
 
   //copied stuff
 
@@ -32,14 +32,14 @@ const Battle = () => {
     {}
   );
   const opponentData = opponentQueryData?.getOpponentMoves || [];
-   console.log(opponentData);
+   //console.log(opponentData);
 
   let { loading: userMovesLoading, data: userMovesData } = useQuery(
     QUERY_GET_POKEMON_MOVE_DATA,
     { variables: { pokemonID: pokemonList.pokemon } }
   );
   const userPokemonMovesList = userMovesData?.getPokemonMoveData || [];
-   console.log(userPokemonMovesList);
+   //console.log(userPokemonMovesList);
 
   let { loading: opponentMovesLoading, data: opponentMovesData } = useQuery(
     QUERY_GET_POKEMON_MOVE_DATA,
@@ -47,7 +47,7 @@ const Battle = () => {
   );
 
   const opponentPokemonMovesList = opponentMovesData?.getPokemonMoveData || [];
-  // console.log(opponentPokemonMovesList);
+  //console.log(opponentPokemonMovesList);
 
   let { loading: secondSinglePokemonLoading, data: secondPokemon } = useQuery(
     QUERY_SINGLE,
@@ -55,7 +55,34 @@ const Battle = () => {
   );
 
   const brocksPokemon = secondPokemon?.singlePokemon || [];
-  //console.log(brocksPokemon);
+  //filter through opponents moves list and add move data for opponents moves to an array
+
+  const brockMoves = [];
+  if (opponentData && opponentData[0] && opponentData[0].moves) {
+    opponentData[0].moves.forEach((move) => {
+      //console.log(move);
+      opponentPokemonMovesList.forEach((moveComp) => {
+        if (move === moveComp.moveID) {
+          brockMoves.push(moveComp);
+        }
+      });
+    });
+  }
+  //console.log(brockMoves);
+  //filter through moves list and add move data for user moves to an array
+  const userMoves = [];
+  if (pokemonList && pokemonList.pokemonMoves) {
+    pokemonList.pokemonMoves.forEach((move) => {
+      userPokemonMovesList.forEach((moveComp) => {
+        if (move === moveComp.moveName) {
+          userMoves.push(moveComp);
+        }
+      });
+    });
+  }
+  console.log(userMoves);
+  console.log(brockMoves);
+
 
       // Function to randomize opponent moves and fetch updated opponent data
   const handleRandomizeOpponentMoves = async () => {
@@ -156,24 +183,24 @@ const Battle = () => {
         }
       </div>
       <div className="flex flex-wrap flex-row gap-3 justify-center rounded-lg border-2 bg-indigo-300/[0.3] fix">
-        {userPokemon.moves && userPokemon.moves[0] && (
+        {userMoves[0] && userMoves[0].moveName && (
           <button className="btn basis-1/3" onClick={handleMove}>
-            {userPokemon.moves[0]}
+            {userMoves[0].moveName}
           </button>
         )}
-        {userPokemon.moves && userPokemon.moves[1] && (
+        {userMoves[1]&& userMoves[1].moveName && (
           <button className="btn basis-1/3" onClick={handleMove}>
-            {userPokemon.moves[1]}
+            {userMoves[1].moveName}
           </button>
         )}
-        {userPokemon.moves && userPokemon.moves[2] && (
+        {userMoves[2] && userMoves[2].moveName && (
           <button className="btn basis-1/3" onClick={handleMove}>
-            {userPokemon.moves[2]}
+            {userMoves[2].moveName}
           </button>
         )}
-        {userPokemon.moves && userPokemon.moves[3] && (
+        {userMoves[3] && userMoves[3].moveName && (
           <button className="btn basis-1/3" onClick={handleMove}>
-            {userPokemon.moves[3]}
+            {userMoves[3].moveName}
           </button>
         )}
       </div>
