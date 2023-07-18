@@ -2,16 +2,19 @@ import React from "react";
 
 import "./end.css";
 
-const End = () => {
+import { Link } from "react-router-dom";
+
+const Win = () => {
   return (
     <div className="flex flex-wrap flex-col border-2 border-black rounded-lg justify-center items-center gap-3 h-screen">
+      <h1>You Win!</h1>
       <div className="flex flew-wrap flex-col gap-3 items-center rounded-lg border-2 bg-indigo-300/[0.3] fix">
-        <a className="btn btn-primary">Play Again</a>
-        <a className="btn btn-primary">Choose New Pokemon</a>
-        <a className="btn btn-primary">Quit</a>
+        <Link to="/">
+          <a className="btn btn-primary">Play Again!</a>
+        </Link>
       </div>
     </div>
   );
 };
 
-export default End;
+export default Win;
