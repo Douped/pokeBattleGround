@@ -40,7 +40,7 @@ const Login = () => {
       variables: { email, password },
     });
     console.log(data);
-    Auth.login(data.addUser.token);
+    Auth.login(data.login.token);
     window.location.href = "/";
   };
 
