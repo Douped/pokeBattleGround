@@ -11,7 +11,8 @@ import {
 import { RANDOMIZEOPPONENTMOVES } from "../../utils/mutations";
 
 const Battle = () => {
-  const [randomizeOpponentMoves] = useMutation(RANDOMIZEOPPONENTMOVES, {});
+  const [randomizeOpponentMoves] = useMutation(RANDOMIZEOPPONENTMOVES);
+  
   let { loading, data, refetch } = useQuery(QUERY_GET_USER_DATA, {});
   const pokemonList = data?.me || [];
   // console.log(pokemonList);
@@ -31,14 +32,14 @@ const Battle = () => {
     {}
   );
   const opponentData = opponentQueryData?.getOpponentMoves || [];
-  // console.log(opponentData);
+   console.log(opponentData);
 
   let { loading: userMovesLoading, data: userMovesData } = useQuery(
     QUERY_GET_POKEMON_MOVE_DATA,
     { variables: { pokemonID: pokemonList.pokemon } }
   );
   const userPokemonMovesList = userMovesData?.getPokemonMoveData || [];
-  // console.log(userPokemonMovesList);
+   console.log(userPokemonMovesList);
 
   let { loading: opponentMovesLoading, data: opponentMovesData } = useQuery(
     QUERY_GET_POKEMON_MOVE_DATA,
@@ -54,10 +55,26 @@ const Battle = () => {
   );
 
   const brocksPokemon = secondPokemon?.singlePokemon || [];
-  console.log(brocksPokemon);
+  //console.log(brocksPokemon);
 
-  // const userMoves = userPokemon.moves || [];
-  // const opponentMoves = opponentData[0]?.moves || [];
+      // Function to randomize opponent moves and fetch updated opponent data
+  const handleRandomizeOpponentMoves = async () => {
+    try {
+      // Call the mutation to randomize opponent moves
+      await randomizeOpponentMoves();
+
+      // After randomizing, refetch the opponent data to get the updated values
+      // You can use the refetch function provided by useQuery for this
+      QUERY_GET_OPPONENT_MOVES.refetch();
+      
+    } catch (error) {
+      console.log("Error randomizing opponent moves:", error);
+    }
+  };
+  useEffect(() =>{
+    handleRandomizeOpponentMoves();
+  },[]
+  );
 
   useEffect(() => {
     if (
