@@ -11,8 +11,8 @@ import { useNavigate } from "react-router-dom";
 import { RANDOMIZEOPPONENTMOVES } from "../../utils/mutations";
 
 const Battle = () => {
-  const [opponentHealth, setOpponentHealth] = useState(300);
-  const [playerHealth, setPlayerHealth] = useState(200);
+  const [opponentHealth, setOpponentHealth] = useState(500);
+  const [playerHealth, setPlayerHealth] = useState(500);
 
 
   const [randomizeOpponentMoves] = useMutation(RANDOMIZEOPPONENTMOVES);
@@ -96,7 +96,7 @@ const Battle = () => {
 
       // After randomizing, refetch the opponent data to get the updated values
       // You can use the refetch function provided by useQuery for this
-      //QUERY_GET_OPPONENT_MOVES.refetch();
+      QUERY_GET_OPPONENT_MOVES.refetch();
       
     } catch (error) {
       console.log("Error randomizing opponent moves:", error);
@@ -212,7 +212,7 @@ const Battle = () => {
               className="w-90%"
               id="opponentHealth"
               value={opponentHealth}
-              max={100} 
+              max={500} 
               style={{ width: "95%" }}
             ></progress>
             </p>
@@ -237,7 +237,7 @@ const Battle = () => {
               className="w-90%"
               id="playerHealth"
               value={playerHealth}
-              max={100}
+              max={500}
               style={{ width: "95%" }}
             ></progress>
             </p>
