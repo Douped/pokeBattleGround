@@ -23,6 +23,10 @@ const resolvers = {
       let move = await Move.findOne({ moveID: moveID });
       return move;
     },
+    singleMoveByName: async (parent, { moveName }) => {
+      let move = await Move.findOne({ moveName: moveName });
+      return move;
+    },
     getPokemonMoveData: async (parent, { pokemonID }) => {
       const pokemon = await Pokemon.findOne({ pokemonID: pokemonID });
       if (!pokemon) {

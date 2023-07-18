@@ -223,7 +223,6 @@ const Moves = () => {
         pokemonData: pokemonID,
         moveData: choosenMoves,
       };
-      console.log(variables);
       await savePokemon({ variables });
       console.log("mutation success!");
     } catch (err) {

@@ -61,6 +61,7 @@ const typeDefs = gql`
     moves: [Move]
     singlePokemon(pokemonID: String!): Pokemon
     singleMove(moveID: String!): Move
+    singleMoveByName(moveName: String!): Move
     getPokemonMoveData(pokemonID: String!): [Move]
   }
 
