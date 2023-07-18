@@ -76,3 +76,20 @@ export const QUERY_SINGLE = gql`
     }
   }
 `;
+
+export const SINGLEMOVEBYNAME = gql`
+  query SingleMoveByName($moveName: String!) {
+    singleMoveByName(moveName: $moveName) {
+      moveID
+      moveName
+      description
+      status
+      type
+      speed
+      accuracy
+      damage
+      ailment
+      pp
+    }
+  }
+`;

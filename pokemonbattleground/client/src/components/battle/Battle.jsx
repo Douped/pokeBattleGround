@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import BattleMenu from "./BattleMenu";
 import { useQuery, useMutation } from "@apollo/client";
 import { useState } from "react";
 import {
@@ -9,16 +8,33 @@ import {
 } from "../../utils/queries";
 
 const Battle = () => {
-  let { loading, data } = useQuery(QUERY_GET_USER_DATA, {});
+  let { loading, data, refetch } = useQuery(QUERY_GET_USER_DATA, {});
   const pokemonList = data?.me || [];
   console.log(pokemonList);
 
+  let { loading: singlePokemonLoading, data: firstPokemon } = useQuery(
+    QUERY_SINGLE,
+    { variables: { pokemonId: pokemonList.pokemon } }
+  );
+
+  const userPokemon = firstPokemon?.singlePokemon || [];
+  console.log(userPokemon);
+
+  useEffect(() => {
+    if (!loading && !singlePokemonLoading) {
+      refetch();
+    }
+  }, [loading, singlePokemonLoading, refetch]);
+
+  function handleMove() {
+    console.log("hi");
+  }
   return (
     <>
-      <div className="flex flex-wrap flex-col border-2 border-black rounded-lg justify-end gap-3 h-screen">
-        <div className="flex flex-wrap flex-row border-2 border-black rounded-lg justify-end gap-3">
-          <div className="flex flex-wrap flex-col basis-1/3 border-2 border-black rounded-lg justify-end bg-slate-200 gap-2">
-            <p>name</p>
+      <div className="flex flex-wrap flex-col justify-end gap-3 h-screen">
+        <div className="flex flex-wrap flex-row justify-end gap-3">
+          <div className="flex flex-wrap flex-col basis-1/3 border-2 border-black rounded-lg justify-center bg-slate-200 gap-5">
+            <h1>{userPokemon.pokemonName}</h1>
             <p>
               HP
               <progress
@@ -29,18 +45,20 @@ const Battle = () => {
               ></progress>
             </p>
           </div>
-          <div className="flex flex-wrap flex-col border-2 border-black rounded-lg justify-end">
-            dwadawdwa
-            <img></img>
-          </div>
+          {userPokemon.image && userPokemon.image[1] && (
+            <div className="flex flex-wrap flex-col justify-end">
+              <img src={userPokemon.image[0]} className="w-64 h-auto"></img>
+            </div>
+          )}
         </div>
-        <div className="flex flex-wrap flex-row border-2 border-black rounded-lg gap-3">
-          <div className="flex flex-wrap flex-col border-2 border-black rounded-lg justify-end">
-            dwadawdwa
-            <img></img>
-          </div>
-          <div className="flex flex-wrap flex-col basis-1/3 border-2 border-black rounded-lg justify-end bg-slate-200 gap-2">
-            <p>name</p>
+        <div className="flex flex-wrap flex-row gap-3">
+          {userPokemon.image && userPokemon.image[1] && (
+            <div className="flex flex-wrap flex-col justify-end">
+              <img src={userPokemon.image[1]} className="w-64 h-auto"></img>
+            </div>
+          )}
+          <div className="flex flex-wrap flex-col basis-1/3 border-2 border-black rounded-lg justify-center bg-slate-200 gap-2">
+            <h1>{userPokemon.pokemonName}</h1>
             <p>
               HP
               <progress
@@ -66,13 +84,28 @@ const Battle = () => {
           // }
           // /> */
         }
-
-        <BattleMenu
-          onMove1={() => console.log("hi")}
-          onMove2={() => console.log("hi")}
-          onMove3={() => console.log("hi")}
-          onMove4={() => console.log("hi")}
-        />
+      </div>
+      <div className="flex flex-wrap flex-row gap-3 justify-center rounded-lg border-2 bg-indigo-300/[0.3] fix">
+        {userPokemon.moves && userPokemon.moves[0] && (
+          <button className="btn basis-1/3" onClick={handleMove}>
+            {userPokemon.moves[0]}
+          </button>
+        )}
+        {userPokemon.moves && userPokemon.moves[1] && (
+          <button className="btn basis-1/3" onClick={handleMove}>
+            {userPokemon.moves[1]}
+          </button>
+        )}
+        {userPokemon.moves && userPokemon.moves[2] && (
+          <button className="btn basis-1/3" onClick={handleMove}>
+            {userPokemon.moves[2]}
+          </button>
+        )}
+        {userPokemon.moves && userPokemon.moves[3] && (
+          <button className="btn basis-1/3" onClick={handleMove}>
+            {userPokemon.moves[3]}
+          </button>
+        )}
       </div>
     </>
   );

@@ -13,8 +13,6 @@ const Home = () => {
 
   const pokemonList = data?.pokemon || [];
 
-  console.log(pokemonList);
-
   return (
     <>
       <div className="font-sans flex flex-row justify-center text-center rounded-lg border-2 bg-indigo-300/[0.3] fix">
