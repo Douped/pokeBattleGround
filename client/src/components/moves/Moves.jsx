@@ -341,6 +341,8 @@ const Moves = () => {
               </button>
             </Link>
             ): (
+
+              
               <div>
                 Log in to battle other pokemon!
                 </div>
