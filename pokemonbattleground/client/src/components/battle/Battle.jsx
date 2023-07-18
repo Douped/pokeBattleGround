@@ -11,6 +11,10 @@ import {
 import { RANDOMIZEOPPONENTMOVES } from "../../utils/mutations";
 
 const Battle = () => {
+  const [opponentHealth, setOpponentHealth] = useState("");
+  const [playerHealth, setPlayerHealth] = useState("");
+
+
   const [randomizeOpponentMoves] = useMutation(RANDOMIZEOPPONENTMOVES);
   
   let { loading, data, refetch } = useQuery(QUERY_GET_USER_DATA, {});
@@ -92,7 +96,7 @@ const Battle = () => {
 
       // After randomizing, refetch the opponent data to get the updated values
       // You can use the refetch function provided by useQuery for this
-      QUERY_GET_OPPONENT_MOVES.refetch();
+      //QUERY_GET_OPPONENT_MOVES.refetch();
       
     } catch (error) {
       console.log("Error randomizing opponent moves:", error);
@@ -122,8 +126,61 @@ const Battle = () => {
     refetch,
   ]);
 
-  function handleMove() {
-    console.log("hi");
+  //generate an ai move
+
+  let dmg = "0";
+  let aiDmg = "0";
+
+  function generateAIMove() {
+    const options = Math.floor(Math.random() * brockMoves.length);
+    const aiMove = brockMoves[options];
+
+    return aiMove;
+  }
+
+  
+
+  function calcDmg(usedMove) {
+    let dmgValue = '';
+    if(usedMove.damage){
+      console.log(usedMove.damage);
+      dmgValue = usedMove.damage;
+    }
+
+
+
+    return dmgValue;
+  }
+
+  function handleMove(move) {
+
+    console.log(move);
+    const playerMove = move;
+
+    if (playerMove.status === "special" || "physical") {
+      dmg = calcDmg(playerMove);
+    }
+
+    const updatedOpponentHealth = opponentHealth - dmg;
+
+    if (updatedOpponentHealth <= 0) {
+      return;
+    }
+
+    const aiMove = generateAIMove();
+
+    if (aiMove == "special" || "physical") {
+      aiDmg = calcDmg(aiMove);
+    }
+
+    const updatedPlayerHealth = playerHealth - aiDmg;
+
+    if (updatedOpponentHealth <= 0) {
+      return;
+    }
+
+    setOpponentHealth(updatedOpponentHealth);
+    setPlayerHealth(updatedPlayerHealth);
   }
 
   return (
@@ -183,26 +240,38 @@ const Battle = () => {
         }
       </div>
       <div className="flex flex-wrap flex-row gap-3 justify-center rounded-lg border-2 bg-indigo-300/[0.3] fix">
-        {userMoves[0] && userMoves[0].moveName && (
-          <button className="btn basis-1/3" onClick={handleMove}>
+{userMoves[0] && userMoves[0].moveName && (
+          <button
+            className="btn basis-1/3"
+            onClick={()=>handleMove(userMoves[0].moveName)}
+          >
             {userMoves[0].moveName}
           </button>
         )}
-        {userMoves[1]&& userMoves[1].moveName && (
-          <button className="btn basis-1/3" onClick={handleMove}>
+        {userMoves[1] && userMoves[1].moveName && (
+          <button
+            className="btn basis-1/3"
+            onClick={()=>handleMove(userMoves[1].moveName)}
+          >
             {userMoves[1].moveName}
           </button>
         )}
         {userMoves[2] && userMoves[2].moveName && (
-          <button className="btn basis-1/3" onClick={handleMove}>
+          <button
+            className="btn basis-1/3"
+            onClick={()=>handleMove(userMoves[2].moveName)}
+          >
             {userMoves[2].moveName}
           </button>
         )}
         {userMoves[3] && userMoves[3].moveName && (
-          <button className="btn basis-1/3" onClick={handleMove}>
+          <button
+            className="btn basis-1/3"
+            onClick={()=>handleMove(userMoves[3].moveName)}
+          >
             {userMoves[3].moveName}
           </button>
-        )}
+    )}
       </div>
     </>
   );
