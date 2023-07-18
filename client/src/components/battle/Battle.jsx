@@ -13,7 +13,6 @@ import { RANDOMIZEOPPONENTMOVES } from "../../utils/mutations";
 const Battle = () => {
   const [opponentHealth, setOpponentHealth] = useState(500);
   const [playerHealth, setPlayerHealth] = useState(500);
-
   const [randomizeOpponentMoves] = useMutation(RANDOMIZEOPPONENTMOVES);
 
   let { loading, data, refetch } = useQuery(QUERY_GET_USER_DATA, {});
@@ -189,6 +188,14 @@ const Battle = () => {
                 max={500}
                 style={{ width: "95%" }}
               ></progress>
+
+              className="w-90%"
+              id="opponentHealth"
+              value={opponentHealth}
+              max={500} 
+              style={{ width: "95%" }}
+            ></progress>
+
             </p>
           </div>
           {brocksPokemon.image && brocksPokemon.image[1] && (
@@ -208,12 +215,21 @@ const Battle = () => {
             <p>
               HP
               <progress
+
                 className="w-90%"
                 id="playerHealth"
                 value={playerHealth}
                 max={500}
                 style={{ width: "95%" }}
               ></progress>
+
+              className="w-90%"
+              id="playerHealth"
+              value={playerHealth}
+              max={500}
+              style={{ width: "95%" }}
+            ></progress>
+
             </p>
           </div>
         </div>
