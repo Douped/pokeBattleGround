@@ -3,7 +3,6 @@ import React from "react";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 
 import Battle from "./components/battle/Battle";
-import EndScreen from "./components/endScreen/End";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import Home from "./components/homepage/Home";
@@ -11,6 +10,8 @@ import Moves from "./components/moves/Moves";
 import Login from "./components/login/Login";
 import Sign from "./components/sign-up/Sign";
 import Auth from "./utils/auth";
+import Defeat from "./components/defeat/Defeat";
+import Win from "./components/win/Win";
 
 import "./style.css";
 
@@ -37,8 +38,9 @@ const App = () => {
               <Route path="/sign-up" element={<Sign />}></Route>
               <Route exact path="/" element={<Home />}></Route>
               <Route exact path="/moves/:pokemonID" element={<Moves />}></Route>
-              <Route exact path="/battle/" element={<Battle />}></Route>
-              <Route exact path="/end" element={<EndScreen />}></Route>
+              <Route exact path="/battle" element={<Battle />}></Route>
+              <Route exact path="/win" element={<Win />}></Route>
+              <Route exact path="/defeat" element={<Defeat />}></Route>
             </Routes>
           </div>
           <Footer />
